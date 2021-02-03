@@ -4,7 +4,7 @@ var g_listTypeData = {
     price: []
 };
 
-// global var. Store the page owner wsp number
+/* global var. Store the page owner wsp number */
 var g_phone_number = '';
 
 

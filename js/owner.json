@@ -6,7 +6,7 @@
     "address": "Avenida Siempre Viva 789",
     "maps_link": "http://www.google.com.ar",
     "banners":[
-        {"priority": "low", "data":"COVID-19: Trabajamos solo con envíos. L a V de 10 a 23hs"}
+        {"priority": "low", "data":"COVID-19: Trabajamos solo con envíos."}
     ],
     "whatsapp_contact": "5491173659063",
     "social_media":[

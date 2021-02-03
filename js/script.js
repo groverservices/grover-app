@@ -304,6 +304,20 @@ function updateModalAmountVariable(increase, variant_id, HTMLreference, price) {
 
 /* -------------------------------------- OLD CODE | ALREADY FUNCTIONAL -------------------------------------- */
 
+function mostrarInfo (){
+    document.getElementById('Info').style.display = 'block';
+    document.getElementById('Mostrar-tuinfo').style.borderBottom = '3px solid var(--details-color)';
+    document.getElementById('Mostrar-tutienda').style.borderBottom = 'none';
+    document.getElementById('products-section').style.display = 'none';
+}
+
+function mostrarTienda (){
+  document.getElementById('products-section').style.display = 'grid';
+  document.getElementById('Mostrar-tutienda').style.borderBottom = '3px solid var(--details-color)';
+  document.getElementById('Mostrar-tuinfo').style.borderBottom = 'none';
+  document.getElementById('Info').style.display = 'none';
+}
+
 /* When document is loaded start creating the new page */
 $(document).ready(function(){
     // DEBUG ONLY: clear the sessionMem variable created by liveServer plugin

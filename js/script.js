@@ -11,7 +11,7 @@ var g_phone_number = '';
 function sendCartToWhatsapp(){
     var newline = '%0A';
     var space = '%20';
-    var url = `https://wa.me/${g_phone_number}?text=Hola${newline}Como${space}estas?`
+    var url = `https://wa.me/${g_phone_number}?text=Hola${newline}Como${space}estas?&lang=es`
 
     var win = window.open(url, '_blank');
     win.focus();
@@ -95,6 +95,13 @@ function updateCart(){
     
 
     closeOptionals();
+}
+
+function viewCurrentCart(){
+    var modal = document.getElementById("modal");
+    modal.style.display = "block";
+    modal.scrollIntoView({behavior: "smooth"});
+
 }
 
 function displayCartOptions(payload){

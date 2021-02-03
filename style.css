@@ -5,6 +5,8 @@
 :root{
     --principal-color:  hsl(0, 0%, 95%);                                     /* Color de iconos */ 
     --background-color: rgb(255, 255, 255);  /* Color de fondo de página */
+
+    --page-width-size: 60%;
     
     --dark-titles-color: rgb(61, 61, 61);
     --dark-secondary-text-color: darkgrey;
@@ -73,7 +75,7 @@ a{
 }
 .container{
     margin: 0 auto;
-    width: 60%;
+    width: var(--page-width-size);
 }
 
 /* -- Header elements -- */ 
@@ -239,6 +241,7 @@ a{
 
 .product-card:hover{
     transform: scale(1.05);
+    cursor: pointer;
 }
 
 .product-card img{
@@ -323,7 +326,7 @@ a{
     padding-left: 5rem;
     padding-right: 5rem;
     border: 1px solid #888;
-    width: 60%;
+    width: var(--page-width-size);
 }
 
 /* The Close Button */
@@ -440,8 +443,6 @@ a{
 
     line-height: 2em;
     height: 2.5em;
-
-
 }
 #modal > div > section > div > p{
     margin: 0;
@@ -460,26 +461,6 @@ a{
 #optionsTable tr td:nth-child(3){
     width: 15%;
 }
-
-/*
-.options-content .boton{
-    margin-top: 50px;
-}
-.options-content .options-table div{
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-areas: "title optionals";
-}
-.options-content .options-table div p{
-    grid-area: title;
-}
-.options-content .options-table div div{
-    grid-area: title;
-}
-*/
-
-/* footer */
-
 footer{
     width:100%;
     display: grid;
@@ -506,14 +487,12 @@ footer div{
 .Arma-tu-carrito p{
     display: inline;
 }
-
 p.p-armar {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
-
 #grover_cp{
     width: 100%;
     display: flex;
@@ -521,7 +500,6 @@ p.p-armar {
     align-items: center;
     text-align: center;
 }
-
 .check-mark b{
     color: green;
     font-size: 30px;
@@ -530,6 +508,26 @@ p.p-armar {
     background: var(--details-color);
     display: inline-block;
     vertical-align: middle;
+}
+.fixed-cart-footer{
+    width: var(--page-width-size);
+    position: fixed;
+    bottom: 0;
+    vertical-align: middle;
+
+    background-color: var(--dark-secondary-text-color);
+    color: var(--background-color);
+    text-align: center;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+.fixed-cart-footer:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+}
+.fixed-cart-footer h1{
+    /* margin: top right bottom left */
+    margin: 0.4em 0;
 }
 
 

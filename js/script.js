@@ -92,21 +92,32 @@ function updateCart(){
         sessionStorage.setItem('cart', newItem);
     }
     */
-    
-
     closeOptionals();
 }
 
 function viewCurrentCart(){
+    // Display a pop up modal in the document
     var modal = document.getElementById("modal");
     modal.style.display = "block";
     modal.scrollIntoView({behavior: "smooth"});
 
-    /* Construct the modal view */
-    var opt_content = modal.getElementsByClassName('options-content')[0];
+    // Esto esta mal, pero funciona, no pregunten porque...
+    document.getElementById('options-content-header').innerHTML = `
+    <div style="display:none" id="category">  </div> 
+    <div id="title" style="font-size: 1.2rem"> Tu Carrito </div> 
+    <img src="" alt="">   
+    <h3><i></i></h3>
+    <div></div>`;
 
-    console.log(opt_content);
-    opt_content.childNodes().getElementById('options-content-header').$('div')[0].innerHTML=`Tu Carrito`;
+    // Load the variants found for the product into html modal
+    var optionsTable = document.getElementById('optionsTable');
+
+    // Clear the table before entering new data
+    optionsTable.innerHTML = ''; 
+
+    var addToCartDiv = document.getElementById('btn-section');
+
+    addToCartDiv.innerHTML = `<div onclick="sendCartToWhatsapp()"><p>Terminar el pedido</p></div>`;
 
    /* modal.innerHTML = `
     <div class="options-content">
@@ -116,31 +127,7 @@ function viewCurrentCart(){
         </header>
 
         <section id="btn-section"><div onclick="sendCartToWhatsapp()"><p>Agregar al carrito</p></div></section>
-  </div>`; */ 
-
-    /* 
-    <div id="modal" class="options-background">
-        <!-- Modal content -->
-        <div class="options-content">
-            <span class="close" id="close-btn" onclick="closeOptionals()">&times;</span>
-
-            <header id="options-content-header">
-
-            </header>
-            <table class="options-table" >
-                <tbody id="optionsTable">
-                </tbody>
-            </table>
-
-            <section id='btn-section'>
-                
-            </section>
-        </div>
-    </div>
-    */
-
-
-
+  </div>`; */
 
 }
 

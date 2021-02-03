@@ -7,7 +7,6 @@ var g_listTypeData = {
 /* global var. Store the page owner wsp number */
 var g_phone_number = '';
 
-
 function sendCartToWhatsapp(){
     var newline = '%0A';
     var space = '%20';
@@ -101,7 +100,7 @@ function viewCurrentCart(){
     modal.style.display = "block";
     modal.scrollIntoView({behavior: "smooth"});
 
-    // Esto esta mal, pero funciona, no pregunten porque...
+    // Esto esta mal, pero funciona, no preguntes porque...
     document.getElementById('options-content-header').innerHTML = `
     <div style="display:none" id="category">  </div> 
     <div id="title" style="font-size: 1.2rem"> Tu Carrito </div> 
@@ -115,19 +114,7 @@ function viewCurrentCart(){
     // Clear the table before entering new data
     optionsTable.innerHTML = ''; 
 
-    var addToCartDiv = document.getElementById('btn-section');
-
-    addToCartDiv.innerHTML = `<div onclick="sendCartToWhatsapp()"><p>Terminar el pedido</p></div>`;
-
-   /* modal.innerHTML = `
-    <div class="options-content">
-        <span class="close" id="close-btn" onclick="closeOptionals()">×</span>
-        <header id="options-content-header">
-            <div id="title">Tu Carrito</div> 
-        </header>
-
-        <section id="btn-section"><div onclick="sendCartToWhatsapp()"><p>Agregar al carrito</p></div></section>
-  </div>`; */
+    document.getElementById('btn-section').innerHTML = `<div onclick="sendCartToWhatsapp()"><p>Terminar el pedido</p></div>`;
 
 }
 
@@ -195,6 +182,24 @@ function closeOptionals(){
     /* Also, when the modal is closed, we should clear the tempProduct from sessionStorage */
     console.log("delete the next line")
     sessionStorage.removeItem("temp");
+
+    /* Clear the modal for next use */
+    modal.innerHTML=`
+    <div class="options-content">
+        <span class="close" id="close-btn" onclick="closeOptionals()">&times;</span>
+
+        <header id="options-content-header">
+
+        </header>
+        <table class="options-table" >
+            <tbody id="optionsTable">
+            </tbody>
+        </table>
+
+        <section id='btn-section'>
+            
+        </section>
+    </div>`;
 }
 
 function updateModalPrice(reference, type, prices, amount_ref_id, listTypeIndex){

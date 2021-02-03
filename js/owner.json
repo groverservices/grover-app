@@ -1,0 +1,19 @@
+{
+    "cover_img":"img/cover.jpg",
+    "profile_img": "img/profile.jpg",
+    "title": "Minutas tu tía",
+    "sub_title": "Más rápido que la Fórmula 1",
+    "address": "Avenida Siempre Viva 789",
+    "maps_link": "http://www.google.com.ar",
+    "banners":[
+        {"priority": "low", "data":"COVID-19: Trabajamos solo con envíos. L a V de 10 a 23hs"}
+    ],
+    "whatsapp_contact": "5491173659063",
+    "social_media":[
+        {"platform": "whatsapp", "link": "whatsapp.com"},
+        {"platform": "facebook", "link": "facebook.com"},
+        {"platform": "instagram", "link": "instagram.com"},
+        {"platform": "twitter", "link": "twitter.com"}
+
+    ]
+}

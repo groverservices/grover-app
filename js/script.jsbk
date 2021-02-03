@@ -1,0 +1,481 @@
+/* To - do */
+// - A
+// - Agregar capacidad de tener un limite de stock
+//var item_variant_price = -1;
+
+// Find a List variant
+function getPriceForListVariant(product_sku, list_title, list_value){
+    var item_variant_price = -1;
+    var list_title = 'Tamaño'
+
+    var ended = false;
+
+    do{
+        $.getJSON('js/products.json', function(data){
+            $.each(data, function (i) {
+                if (data[i].sku == product_sku) {
+                    for (var j = 0; j < data[i].variants.length; j++) {
+                        if (data[i].variants[j].extra == list_title) {
+                            var array = data[i].variants[j];
+                            item_variant_price = array.price[array.option.indexOf(list_value)];
+                        }
+                    }
+                }
+            });
+        });
+        console.log(item_variant_price);
+    }while (item_variant_price == (undefined))
+
+    console.log(item_variant_price);
+
+        /*
+    $.getJSON('js/products.json', function(data){
+        $.each(data, function(i, item){
+            if(data[i].sku == product_sku){
+                for(var j = 0; j<data[i].variants.length; j++){
+                    if(data[i].variants[j].extra == list_title){
+                        var array = data[i].variants[j];
+
+                        item_variant_price = array.price[array.option.indexOf(list_value)];
+
+                        console.log(item_variant_price);
+
+                        return item_variant_price;
+                    }
+                }
+            }
+        });
+    });
+    */
+}
+
+async function updateCart(option, product_sku){   
+    var temp_cart = [];
+    var price = -1;
+
+    temp_cart.sku = parseInt(product_sku); // may not be necessary in the cart
+    temp_cart.category = document.querySelector("#category").innerHTML;
+    temp_cart.title = document.querySelector("#title").innerHTML;
+
+    var var_array = [];
+
+    // For each element in the modal table, get the value set by the user
+    for (var i = 0; i < $('#optionsTable')[0].childElementCount; i++){
+        // second_row_item -> Row title
+        var first_row_item = document.querySelector(`#optionsTable > tr:nth-child(${i+1}) > td:nth-child(1)`);
+
+        // second_row_item -> Input from user column item
+        var second_row_item = document.querySelector(`#optionsTable > tr:nth-child(${i+1}) > td:nth-child(2)`);
+
+        // item_class -> says what kind of input the element is
+        var item_class = second_row_item.className
+
+        // Each type of item requires a different approach to obtain the info.
+        if (item_class == 'list'){
+            console.log(price);
+
+            
+
+            price = getPriceForListVariant(product_sku, first_row_item.innerHTML, second_row_item.firstChild.nextSibling.value)
+
+            console.log(price);
+
+            var_array. push({
+                'option': first_row_item.innerHTML ,
+                'extra': second_row_item.firstChild.nextSibling.value,
+                'price': price
+            });
+
+            /*
+            "variants": [
+                {"option": "Carne", "extra": "Cerdo", "price": 50.00},
+                {"option": "S", "price": 20.00}
+            ]
+
+            {"type": "list", "option": ["Chico", "Mediano", "De cancha"], "extra": "Tamaño","price": [null, null, 25.00] },
+            {"type": "amount", "option": "Carne", "extra": "Vaca", "price": 45.00},
+            {"type": "checkbox", "option": "Carne", "extra": "Salmón", "price": 150.00}
+
+            */
+
+        }else if (item_class == 'amount'){
+
+        }else if (item_class == 'checkbox'){
+
+        }else{
+            return;
+        }
+    }
+
+    // load the data from var_array to temp_cart variants
+
+    temp_cart.variants = [];
+    temp_cart.variants.push(var_array);
+
+    console.log(temp_cart);
+
+    /*
+    "category": "Ensaladas",
+    "title": "Ensalada lista completa",
+    "variants": [
+        {"type": "list", "option": ["Chico", "Mediano", "De cancha"], "extra": "Tamaño","price": [null, null, 25.00] },
+        {"type": "amount", "option": "Carne", "extra": "Vaca", "price": 45.00},
+        {"type": "checkbox", "option": "Carne", "extra": "Salmón", "price": 150.00}
+    ]
+    */
+
+/*
+    // Get the relevant info from the modal to the cart
+    var temp_cart = {
+        //"sku": sku,
+        //"category": "Ensaladas",
+        //"title": 'Ensalada Caprezanella_0',
+        "quantity": 0,
+        "price": 101,
+        "variants": [
+            {"option": "Carne", "extra": "Cerdo", "price": 50.00},
+            {"option": "S", "price": 20.00}
+        ]
+    }; */
+
+    // Get the current status of the cart
+    var current_cart = [];
+
+    if ("cart" in sessionStorage ){
+        current_cart = JSON.parse(sessionStorage.cart);
+    }else{
+        console.log ('no hay nada en sessionStorage');
+    } 
+    
+    if (option == 'add'){
+        console.log(`updateCart => Option 'Add', sku: ${temp_cart.sku}`);
+
+        // Check if something in cart already
+        if (current_cart == undefined){ //Cart is empty
+            console.log('current_cart is undefined');
+
+            sessionStorage.setItem("cart", JSON.stringify(temp_cart));
+
+        }else{ // There's something in the cart
+
+            current_cart.push(temp_cart);
+
+            sessionStorage.setItem("cart", JSON.stringify(current_cart));
+
+            // Check if product sku is not currently in the cart
+            $.each(current_cart, function(i, item){
+                
+            });
+        }
+
+    }else if(option == 'delete'){
+        console.log(`updateCart => Option 'Delete', sku: ${sku}`);
+
+
+        
+
+    }else{
+        console.log(`updateCart error. option '${option} not available'`)
+    }
+
+    /* Calcular precio sub-total por el carrito */
+    var total_price = 0;
+    new_cart = JSON.parse(sessionStorage.cart);
+
+    $.each(new_cart, function(i, item){
+        total_price += new_cart[i].price;
+        $.each(new_cart[i].variants, function(j, item){
+            total_price += new_cart[i].variants[j].price;
+        });
+    });
+
+    console.log(`precio: ${total_price}`);
+    //DESCOMENTAR ESTO console.log(JSON.parse(sessionStorage.cart));
+
+
+    /*
+    // Search for the max key in sessionStorage 
+    var lastRecord = 0;
+    for (const [key, value] of Object.entries(sessionStorage)) {
+        if (lastRecord <= key) lastRecord = key;
+    };
+
+    // Condiciones de producto repetido 
+    for(const [key, value] of Object.entries(sessionStorage)) {
+        // Busco el sku en sessionStorage 
+        if (JSON.parse(value).sku == product_sku){
+            console.log("Se encontrò un registro con el mismo sku en session Storage: " + sku_rep);
+            // Tiene los mismos variants ??? 
+            if(true){
+                // Existe con los mismos variants: Suma una unidad al carrito 
+                
+
+            }else{
+                // Existe en el carrito, pero tiene otros variants 
+
+            }
+            
+        }else{
+            // No hay de ese sku en el carrito, agregar un elemento completo
+
+        }
+    };
+
+    sessionStorage.clear();
+    */
+}
+
+function displayCartOptions(payload){
+    // Get the product sku from the pressed button id
+    var product_sku = payload.substring(payload.indexOf('_') + 1, payload.length);
+
+    // Display a pop up modal in the document
+    var modal = document.getElementById("modal");
+    modal.style.display = "block";
+    modal.scrollIntoView({behavior: "smooth"});
+
+    // Generate a modal with product info from products.json
+    $.getJSON('js/products.json', function(data){
+        $.each(data, function(i, item){
+            if(data[i].sku == product_sku){
+                // Cargar imagen, titulo y descripción del producto
+                document.getElementById('options-content-header').innerHTML = `
+                <div style="display:none" id="category">${data[i].category}</div> 
+                <div style="display:none" id="title">${data[i].title}</div> 
+                <img src="${data[i].image}" alt="">   
+                <h3>${data[i].title} <i>$${data[i].price}</i></h3>
+                <div>${data[i].description}</div> 
+                `;
+
+                // Load the variants found for the product into html modal
+                var optionsTable = document.getElementById('optionsTable');
+
+                // Clear the table before entering new data
+                optionsTable.innerHTML = ''; 
+
+                for(var j = 0; j<data[i].variants.length; j++){
+                    if (createModalList(optionsTable,
+                        data[i].variants[j].type,
+                        data[i].variants[j].option,
+                        data[i].variants[j].extra,
+                        data[i].variants[j].price,
+                        product_sku)){
+
+                        }else{
+                            console.log ("No variant on sku " + data[i].sku + " variant: " + data[i].variants[j].type);
+                        }
+                }
+            }
+        });
+    });
+    var addToCartDiv = document.getElementById('btn-section');
+
+    addToCartDiv.innerHTML = `<div id='${product_sku}' onclick="updateCart('add', this.id)"><p>Agregar al carrito</p></div>`;
+}
+
+// Hide the modal if the user clicks the X or outside the window
+function closeOptionals(){
+    var modal = document.getElementById("modal");
+    modal.style.display = "none";
+
+    /* Also, when the modal is closed, we should clear the tempProduct from sessionStorage */
+    sessionStorage.removeItem("temp");
+}
+
+// Load the modal table with info from variants in elements in products.json
+function createModalList(HTMLreference, modalType, variantOptions, variantTitle, variantPrice, product_sku){
+    var ref_class = 'td_ref_class';
+    var htmlPayload = '';
+    if(modalType == 'checkbox'){
+        htmlPayload =   
+        `<tr>
+            <td class="options-table-title">${variantTitle}    <i>(+ $${variantPrice})</i></td>
+            <td class="${modalType}">
+                <input type="checkbox">
+            </td>
+        </tr`;
+    }else if(modalType == 'amount'){
+        htmlPayload = `
+        <tr>
+            <td class="options-table-title">${variantTitle}    <i>(+ $${variantPrice})</i></td>
+            <td class="${modalType}">
+                <div class="number-add-substract" style="margin: auto;">
+                    <button type="button" aria-label="restar" class="css-p6o1lj" onclick="updateModalAmountVariable(false, '${variantTitle}')">
+                        <svg viewBox="0 0 24 24" focusable="false" role="presentation" aria-hidden="true" class="css-1im46kq">
+                            <g fill="currentColor">
+                                <rect height="4" width="20" x="2" y="10"></rect>
+                            </g>
+                        </svg>
+                    </button>
+                    <p id="${variantTitle}-amount">0</p> 
+                    <button type="button" aria-label="sumar" class="css-1lq1pnb" onclick="updateModalAmountVariable(true, '${variantTitle}')">
+                        <svg viewBox="0 0 24 24" focusable="false" role="presentation" aria-hidden="true" class="css-1im46kq">
+                            <path fill="currentColor" d="M0,12a1.5,1.5,0,0,0,1.5,1.5h8.75a.25.25,0,0,1,.25.25V22.5a1.5,1.5,0,0,0,3,0V13.75a.25.25,0,0,1,.25-.25H22.5a1.5,1.5,0,0,0,0-3H13.75a.25.25,0,0,1-.25-.25V1.5a1.5,1.5,0,0,0-3,0v8.75a.25.25,0,0,1-.25.25H1.5A1.5,1.5,0,0,0,0,12Z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </td>
+        </tr>`; 
+    }else if(modalType == 'list'){
+        htmlPayload = `  
+        <tr>
+            <td class="options-table-title">${variantTitle}</td>
+            <td class="${modalType}">
+                <select id="list">`;
+        for(var i = 0; i<variantOptions.length; i++){
+            htmlPayload += `<option value = "${variantOptions[i]}"> ${variantOptions[i]}`;
+            if(variantPrice[i] != undefined){
+                htmlPayload += `<i>(+ $${variantPrice[i]})</i>`;
+            }
+            htmlPayload += `</option>`;
+        }
+        htmlPayload += `
+                </select>
+            </td>
+        </tr>`;
+    }else{
+        return false; //error
+    }
+
+    HTMLreference.innerHTML += htmlPayload;  
+
+    return true; // no errors found
+}
+
+/* Modal type 'amount' | buttons script */
+function updateModalAmountVariable(increase, variant_id) {
+    var num = document.getElementById(`${variant_id}-amount`);
+    var numValue = parseInt(num.innerHTML);
+    var maxValue = 10;
+
+    if (increase) numValue++;
+    else numValue --;
+
+    // Only update modal-amount if its within the range
+    if(numValue > -1 && numValue <= maxValue) num.innerHTML = numValue;
+    else return;
+}
+
+/* -------------------------------------- OLD CODE | ALREADY FUNCTIONAL -------------------------------------- */
+
+/* When document is loaded start creating the new page */
+$(document).ready(function(){
+    // DEBUG ONLY: clear the sessionMem variable created by liveServer plugin
+    sessionStorage.removeItem('IsThisFirstTime_Log_From_LiveServer'); 
+
+    // Get and fill the information about the page owner from owner.json 
+    loadOwnerInfo();
+    
+    //loadProductsInfo(): Get and fill the information about each product from product.json  
+    $.getJSON('js/products.json', function(data){
+        /* DEBUG: Asegurar que el archivo json tenga indices correctos */
+        debug_productIndexError();
+        /* Next version: La correccion de indices no será necesaria , ya que el id se 
+        validará en backend */
+
+        /* Get unique categories in products.json */
+        var product_categories = [];
+
+        $.each(data, function(i, item){
+            product_categories.push(data[i].category);
+        });
+
+        /* Eliminar las categorias repetidas */
+        product_categories = uniq(product_categories);
+
+        /* For each product category */
+        for (var i = 0; i<product_categories.length; i++){
+            /* UI: Conteo de productos por categoria */
+            var count = 0;
+            $.each(data, function(j, item){
+                if(data[j].category == product_categories[i]){
+                    count++;
+                }
+            })
+
+            /* Creación del espacio de titulo de categorias */ 
+            $("#products-section").append(`<h2 class="category-name" id="cat_${i}">${product_categories[i]} (${count}) </h2>`);
+
+            /* Insert the products section for this category */
+            var cardHtmlPayload = "<div class=\"products-table\">";
+
+            $.each(data, function(j, item){
+                if(data[j].category == product_categories[i]){
+                    cardHtmlPayload += 
+                    `<div class="product-card">
+                        <img src=${data[j].image} alt="">
+                        <h3>${data[j].title}</h3>
+                        <p class="description" id="js-toclamp">${data[j].description}</p>
+                        <p class="price">$ ${data[j].price}</p>
+                        <button id="btnId_${data[j].sku}" onClick="displayCartOptions(this.id)" >Ver más</button>
+                    </div>`;
+                }
+            })
+            cardHtmlPayload += "</div>"
+            $("#products-section").append(cardHtmlPayload);
+        }
+    });
+});
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == document.getElementById("modal")) {
+        document.getElementById("modal").style.display = "none";
+
+        // closeOptionals will not affect again if the modal is already closed
+        // But it will clear the tempProduct memory
+        closeOptionals();
+    }
+}
+// Get and fill the information about the page owner from owner.json 
+function loadOwnerInfo(){
+    $.getJSON('js/owner.json',function(json_data){
+        // Populate the header information
+        $("#cover_img").attr("src", json_data.cover_img);
+        $("#profile_img").attr("src", json_data.profile_img);
+
+        $("#page_title").html(json_data.title);
+        $("#page_info").html(json_data.sub_title);
+
+        $("#address").html(json_data.address);
+        $("#address").attr("href", json_data.maps_link);
+
+        /* Load the banner info */
+        if(!json_data.banners[0]){
+            alert('Banner info empty or not defined in owner.json');
+            $("#banner_1").parent().hide();
+        }else{
+            $("#banner_1").html(json_data.banners[0].data);
+        }
+
+        // Change social media icons (up to 4)
+
+        /* Next version: Style banners based on priority */
+        /* Next version: Make the social icons populate itself based on available info */
+    });
+} // End of fillOwnerInfo();
+
+/* Funcion usada para encontrar elementos unicos en un array */
+function uniq(a) {
+    var prims = {"boolean":{}, "number":{}, "string":{}}, objs = [];
+
+    return a.filter(function(item) {
+        var type = typeof item;
+        if(type in prims)
+            return prims[type].hasOwnProperty(item) ? false : (prims[type][item] = true);
+        else
+            return objs.indexOf(item) >= 0 ? false : objs.push(item);
+    });
+}// End of uniq();
+
+/* --------- DEBUG ONLY FUNCTIONS ---------- */
+
+/* DEBUG: Asegurar que el archivo json tenga indices correctos */
+function debug_productIndexError() {
+    $.getJSON('js/products.json', function(data){
+        $.each(data, function(i, item){
+            if(data[i].sku != i){
+                //alert(`[debug]: Error found on products.json index: ${data[i].sku}`);
+            }
+        });
+    });
+}

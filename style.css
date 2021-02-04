@@ -520,9 +520,10 @@ p.p-armar {
     text-align: center;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
+    transition: .3s;
 }
 .fixed-cart-footer:hover{
-    transform: scale(1.05);
+    transform: scale(1.03);
     cursor: pointer;
 }
 .fixed-cart-footer h1{

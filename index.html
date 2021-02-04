@@ -113,14 +113,48 @@
 
     <!-- Carrito -->
     <div id="cart-modal" class="options-background">
+
         <div class="options-content">
             <span class="close" id="close-btn" onclick="closeCartModal()">&times;</span>
             <h1>Carrito</h1>
 
+            <div class="products-table" id="cart-modal-product-table">
+                <div class="product-card">
+                    <img src="https://res.cloudinary.com/goncy/image/upload/v1589485873/pency/ffztrxszbauvihsgnjgq.jpg" alt="">
+                    <h3>Ensalada Caprezanella_0</h3>
+                    <div class="close">&#128465;</div>    
+                    <p class="description" id="js-toclamp">Tomate, pepino, cebolla roja, mozzarella fresca, picatostes, albahaca y vinagreta de vino tinto.</p>
+                    <p class="price">$ 280.99</p>
+                </div>
 
 
-            <section id="btn-section"><div onclick="sendCartToWhatsapp()"><p>Terminar la compra</p></div></section>
+                <div class="product-card">
+                    <img src="https://res.cloudinary.com/goncy/image/upload/v1589485873/pency/ffztrxszbauvihsgnjgq.jpg" alt="">
+                    <h3>Ensalada Caprezanella_0</h3>
+                    <span class="close">&#128465;</span>     
+                    <p class="description" id="js-toclamp">Tomate, pepino, cebolla roja, mozzarella fresca, picatostes, albahaca y vinagreta de vino tinto.</p>
+                    <p class="price">$ 280.99</p>
+                </div>
 
+            </div>
+
+            <section id="btn-section" style="
+            background-color: grey;
+            width: 200px;
+            margin: auto;
+            border-radius: 1em;
+            text-align: center;
+            line-height: 2em;
+            height: 2.5em;">
+                <div onclick="sendCartToWhatsapp()">
+                    <p style="
+                    margin: 0;
+                    color: white;
+                    line-height: 1.5;
+                    display: inline-block;
+                    vertical-align: middle;">Terminar la compra</p>
+                </div>
+            </section>
         </div>
     </div>
     <script type="text/javascript" src="js/script.js"></script>

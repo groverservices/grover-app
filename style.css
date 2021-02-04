@@ -529,8 +529,50 @@ p.p-armar {
     /* margin: top right bottom left */
     margin: 0.4em 0;
 }
-#cart-modal .options-content{
-    
+#cart-modal .options-content h1{
+    text-align: center;
+    font-size: 1.5rem;
+}   
+#cart-modal .options-content .products-table{
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: auto;
+    grid-auto-rows: 110px;
+    padding: 1em;
+}
+#cart-modal-product-table .product-card{    
+    box-shadow: 0px 0px 2.5px rgba(0, 0, 0, 0.424);
+    border-radius:1rem;
+
+    display: grid;
+    gap: 1em;
+
+    grid-template-columns: auto 1fr 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas: 
+    "image title del"
+    "image dsc price";
+    background-color: var(--details-color);
+}
+#cart-modal-product-table .product-card:hover{    
+    transform: scale(1);
+}
+#cart-modal-product-table .product-card .close{
+    text-align: end;
+    color: red;
+    padding: 0 3rem;
+}
+#cart-modal-product-table .product-card .price{
+    text-align: end;
+    color: red;
+    padding: 0 3rem;
+}
+#cart-modal-product-table .product-card img{ 
+    height: 5rem;
+    grid-area: image;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-right: 1rem;
 }
 
 

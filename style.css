@@ -529,6 +529,9 @@ p.p-armar {
     /* margin: top right bottom left */
     margin: 0.4em 0;
 }
+#cart-modal .options-content{
+    
+}
 
 
 @media screen and (max-width: 1300px){

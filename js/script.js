@@ -96,25 +96,10 @@ function updateCart(){
 
 function viewCurrentCart(){
     // Display a pop up modal in the document
-    var modal = document.getElementById("modal");
+    var modal = document.getElementById("cart-modal");
     modal.style.display = "block";
     modal.scrollIntoView({behavior: "smooth"});
 
-    // Esto esta mal, pero funciona, no preguntes porque...
-    document.getElementById('options-content-header').innerHTML = `
-    <div style="display:none" id="category">  </div> 
-    <div id="title" style="font-size: 1.2rem"> Tu Carrito </div> 
-    <img src="" alt="">   
-    <h3><i></i></h3>
-    <div></div>`;
-
-    // Load the variants found for the product into html modal
-    var optionsTable = document.getElementById('optionsTable');
-
-    // Clear the table before entering new data
-    optionsTable.innerHTML = ''; 
-
-    document.getElementById('btn-section').innerHTML = `<div onclick="sendCartToWhatsapp()"><p>Terminar el pedido</p></div>`;
 
 }
 
@@ -172,6 +157,10 @@ function displayCartOptions(payload){
     var addToCartDiv = document.getElementById('btn-section');
 
     addToCartDiv.innerHTML = `<div id='${product_sku}' onclick="updateCart('add', this.id)"><p>Agregar al carrito</p></div>`;
+}
+function closeCartModal (){
+    var modal = document.getElementById("cart-modal");
+    modal.style.display = "none";
 }
 
 // Hide the modal if the user clicks the X or outside the window

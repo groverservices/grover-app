@@ -18,16 +18,41 @@ function sendCartToWhatsapp(){
 
 function updateCart(){
     // Get all the info from the current modal
-    var newItem = JSON.stringify({
-        "sku": 0, 
-        "title": "Ensalada Caprezanella_0",
-        "price": 280.99,
-        "variants": [{
-            "extra": "Tamaño",
-            "option": "De cancha",
-            "price": 25.00
-        }]
-    });
+    var newItem = JSON.stringify(
+        [{
+            "title": "Ensalada Caprezanella_0",
+            "image": "https://res.cloudinary.com/goncy/image/upload/v1589485873/pency/ffztrxszbauvihsgnjgq.jpg",
+            "price": 280.99,
+            "variants": [{
+                "extra": "Tamaño",
+                "option": "Grande",
+                "price": 25.00
+            }]
+        },{
+            "title": "Ensalada lista completa",
+            "image": "https://res.cloudinary.com/goncy/image/upload/v1589486001/pency/biujlwqx8bvhbwqk3z2v.jpg",
+            "price": 412.99,
+            "variants": [{
+                "extra": "Tamaño",
+                "option": "Chico",
+                "price": 25.00
+            },{
+                "extra": "Carne",
+                "option": "Vaca",
+                "price": 45.50
+            }]
+        },
+        {
+            "title": "Ensalada Caprezanella_0",
+            "image": "https://res.cloudinary.com/goncy/image/upload/v1589485873/pency/ffztrxszbauvihsgnjgq.jpg",
+            "price": 280.99,
+            "variants": [{
+                "extra": "Tamaño",
+                "option": "Grande",
+                "price": 25.00
+            }]
+        }
+    ]);
 
     // Store that info in newItem
 
@@ -35,11 +60,12 @@ function updateCart(){
 
     // Get the cart stored in sessionStorage, append the newItem 2 to that, and close 
 
-    var stored = sessionStorage.getItem('cart');
+    //var stored = sessionStorage.getItem('cart');
 
-    console.log(typeof(stored));
+    //console.log(typeof(stored));
 
-    var newItem2 = JSON.stringify({
+    
+    /*var newItem2 = JSON.stringify({
         "sku": 1, 
         "title": "El otro item",
         "price": 280.99,
@@ -48,11 +74,11 @@ function updateCart(){
             "option": "De cancha",
             "price": 25.00
         }]
-    });
+    });*/
 
-    var appended_str = '[' + stored + ',' + newItem2 + ']';
+    //var appended_str = '[' + stored + ',' + newItem2 + ']';
 
-    console.log(JSON.parse(appended_str));
+    //console.log(JSON.parse(appended_str));
 
 
 
@@ -91,6 +117,9 @@ function updateCart(){
         sessionStorage.setItem('cart', newItem);
     }
     */
+
+    /* Re calcular el precio del carrito completo para mostrar al lado de carrito */
+    console.log('recalcular el precio que se muestra en el carrito en base al nuevo carrito');
     closeOptionals();
 }
 
@@ -100,7 +129,43 @@ function viewCurrentCart(){
     modal.style.display = "block";
     modal.scrollIntoView({behavior: "smooth"});
 
+    // Get each element in sessionStorage for htmlPayload
+    var objCurrentCart = JSON.parse(sessionStorage.getItem('cart'));
+    var htmlPayload = ' ';
 
+    $.each(objCurrentCart, function(i, item){
+        // Get the variants for this item
+        var variants_description = '';
+        var total_price;    
+
+        $.each(objCurrentCart[i].variants, function(j){
+            console.log(objCurrentCart[i].variants[j]);
+
+            variants_description += `${objCurrentCart[i].variants[j].extra}: ${objCurrentCart[i].variants[j].option} | `
+
+            console.log(variants_description);
+        })
+
+        htmlPayload += `<div class="product-card">
+            <img src="${objCurrentCart[i].image}" alt="">
+            <h3>${objCurrentCart[i].title}</h3>
+            <div class="close" id="0" onclick="deleteFromCart(this.id)">&#128465;</div>    
+            <p class="description" id="js-toclamp">${variants_description}</p>
+            <p class="price">$ ${total_price}</p>
+        </div>
+        `;
+    });
+
+    console.log(htmlPayload);
+
+    document.getElementById('cart-modal-product-table').innerHTML = htmlPayload;
+}
+
+function deleteFromCart (del_id){
+    console.log(`product id: ${del_id} -> deleted`);
+    // Should be deleted from the sessionStorage
+
+    // SHould update the cart Modal
 }
 
 function displayCartOptions(payload){

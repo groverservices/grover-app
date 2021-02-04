@@ -559,12 +559,10 @@ p.p-armar {
 }
 #cart-modal-product-table .product-card .close{
     text-align: end;
-    color: red;
     padding: 0 3rem;
 }
 #cart-modal-product-table .product-card .price{
     text-align: end;
-    color: red;
     padding: 0 3rem;
 }
 #cart-modal-product-table .product-card img{ 
@@ -574,8 +572,22 @@ p.p-armar {
     margin-bottom: 1em;
     margin-right: 1rem;
 }
-
-
+#btn-section{
+    background-color: grey;
+    width: 200px;
+    margin: auto;
+    border-radius: 1em;
+    text-align: center;
+    line-height: 2em;
+    height: 2.5em;
+}
+#btn-section div p{
+    margin: 0;
+    color: white;
+    line-height: 1.5;
+    display: inline-block;
+    vertical-align: middle;
+}
 @media screen and (max-width: 1300px){
     .container{
         margin: auto;

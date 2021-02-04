@@ -136,14 +136,14 @@ function viewCurrentCart(){
     $.each(objCurrentCart, function(i, item){
         // Get the variants for this item
         var variants_description = '';
-        var total_price;    
+        var total_price = objCurrentCart[i].price;    
 
         $.each(objCurrentCart[i].variants, function(j){
-            console.log(objCurrentCart[i].variants[j]);
+            variants_description += `${objCurrentCart[i].variants[j].extra}: ${objCurrentCart[i].variants[j].option} | `;
+            console.log(objCurrentCart[i].variants[j].price);
+            console.log(typeof(objCurrentCart[i].variants[j].price));
 
-            variants_description += `${objCurrentCart[i].variants[j].extra}: ${objCurrentCart[i].variants[j].option} | `
-
-            console.log(variants_description);
+            total_price += objCurrentCart[i].variants[j].price;
         })
 
         htmlPayload += `<div class="product-card">

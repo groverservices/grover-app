@@ -10,14 +10,223 @@ var g_phone_number = '';
 function sendCartToWhatsapp(){
     var newline = '%0A';
     var space = '%20';
-    var url = `https://wa.me/${g_phone_number}?text=Hola${newline}Como${space}estas?&lang=es`
+    var info = sessionStorage.getItem('cart')
+    var url = `https://wa.me/${g_phone_number}?text=Hola${newline}${info}?&lang=es`
 
     var win = window.open(url, '_blank');
     win.focus();
 }
+function updateCart(option, element_id){
+    //debug_addATestCart();
+    var currentCart = JSON.parse(sessionStorage.getItem('cart'));
 
-function updateCart(){
-    // Get all the info from the current modal
+    // Scan the modal to get the variants choosen
+    console.log(`element_id: ${element_id}`);
+
+    // Create the object to be pushed to the cart
+    // El item viene asi -> "Ensalada lista completa $280.99"
+    var payload = document.querySelector("#options-content-header > h3").innerText
+
+    var tempPrice_s = payload.substring(payload.indexOf(' $')+1, payload.length);
+    tempPrice_s = tempPrice_s.replace('$', '');
+
+    var tempPrice = parseFloat(tempPrice_s);
+
+    var tempCart = {
+        "title": payload.substring(0, payload.indexOf(' $')),
+        "image": document.querySelector("#options-content-header > img").src,
+        "price": tempPrice,
+        "variants": []
+    }
+
+    console.log(tempCart);
+    
+    $('#optionsTable tr').each(function(){
+        /* Get the option name */
+        var titulo = $(this).find('td.options-table-title')[0].innerText;
+
+/* RENDERED TABLE EXAMPLE
+<tr>
+    <td class="options-table-title">Tamaño</td>
+    <td class="list">
+        <select class="list" onchange="updateModalPrice(this, 'list', null, null, 1)">
+            <option disabled="" selected="" value=""> -- Tamaño -- </option><option value="Chico"> Chico</option><option value="Mediano"> Mediano</option><option value="De cancha"> De cancha(+ $25)</option>
+        </select>
+    </td>
+    <td class="table-ref-price">
+    </td>
+</tr>
+<tr>
+    <td class="options-table-title">Vaca    <i>(+ $45.5)</i></td>
+    <td class="amount">
+        <div class="number-add-substract" style="margin: auto;">
+            <button type="button" aria-label="restar" class="css-p6o1lj" onclick="updateModalAmountVariable(false, 'Vaca', this, '45.5')">
+                <svg viewBox="0 0 24 24" focusable="false" role="presentation" aria-hidden="true" class="css-1im46kq">
+                    <g fill="currentColor">
+                        <rect height="4" width="20" x="2" y="10"></rect>
+                    </g>
+                </svg>
+            </button>
+            <p id="Vaca-amount">0</p> 
+            <button type="button" aria-label="sumar" class="css-1lq1pnb" onclick="updateModalAmountVariable(true, 'Vaca', this, '45.5')">
+                <svg viewBox="0 0 24 24" focusable="false" role="presentation" aria-hidden="true" class="css-1im46kq">
+                    <path fill="currentColor" d="M0,12a1.5,1.5,0,0,0,1.5,1.5h8.75a.25.25,0,0,1,.25.25V22.5a1.5,1.5,0,0,0,3,0V13.75a.25.25,0,0,1,.25-.25H22.5a1.5,1.5,0,0,0,0-3H13.75a.25.25,0,0,1-.25-.25V1.5a1.5,1.5,0,0,0-3,0v8.75a.25.25,0,0,1-.25.25H1.5A1.5,1.5,0,0,0,0,12Z"></path>
+                </svg>
+            </button>
+        </div>
+    </td>
+    <td class="table-ref-price">
+    </td>
+</tr>*/
+
+        /* Get the option choosen */
+        var optionType = $(this).find('td')[1].className;
+
+        if (optionType == 'checkbox'){
+            var checkbox_selected = $(this).find('td.checkbox input[type=checkbox]')[0].checked;
+            if(checkbox_selected) {
+
+            }
+            
+
+/*
+<tr>
+    <td class="options-table-title">Salmón    <i>(+ $150)</i></td>
+    <td class="checkbox">
+        <input type="checkbox" onchange="updateModalPrice(this, 'checkbox', 150, null)">
+    </td>
+    <td class="table-ref-price">
+    </td>
+</tr> 
+    if(type == 'checkbox'){
+        if($(reference)[0].checked && prices != 0){
+            $(reference).parent().siblings('.table-ref-price')[0].innerText = '$' + prices.toFixed(2);
+        }else{
+            $(reference).parent().siblings('.table-ref-price')[0].innerText = ''
+        }
+*/
+
+
+            
+        }else if(optionType == 'amount'){
+
+        }else if(optionType == 'list'){
+
+        }else{
+            console.log(`Opss.. It seems that ${optionType} does not exists!.`);
+        }
+    });
+
+/* Get the info for every type of type
+
+    }else if(type == 'amount'){
+        // prices -> referencia al precio unitario 
+        var unit_price = parseFloat(prices);
+
+        // amount_ref_id ->  id de la cantidad 
+        var amount = parseInt(document.getElementById(amount_ref_id).innerHTML);
+
+        /// reference -> elemento al que escribir el precio calculado 
+        var final_price = amount * unit_price;
+
+        if (final_price == 0){
+            $(reference).parent().parent().siblings('.table-ref-price')[0].innerText = '';
+        }else{
+            $(reference).parent().parent().siblings('.table-ref-price')[0].innerText = '$' + final_price.toFixed(2);
+        }
+    }else if(type == 'list'){
+        // List type element index
+        var list_index = listTypeIndex - 1;    
+
+        // Search the chosen option in g_listTypeData
+        var option_index = g_listTypeData.options[list_index].indexOf(reference.value)
+
+        // Get the price for that option
+        var final_price = parseFloat(g_listTypeData.price[list_index][option_index]);
+
+        if (isNaN(final_price)){
+            $(reference).parent().siblings('.table-ref-price')[0].innerText = '';
+        }else{
+            $(reference).parent().siblings('.table-ref-price')[0].innerText = '$' + final_price.toFixed(2);
+        }
+    }else{
+        console.log(`Oops! Something is wrong with type ${type} not expected!`);
+    } 
+
+*/
+    
+    
+/* CART EXAMPLE REGISTER
+    "title": "Ensalada lista completa",
+    "image": "https://res.cloudinary.com/goncy/image/upload/v1589486001/pency/biujlwqx8bvhbwqk3z2v.jpg",
+    "price": 412.99,
+    "variants": [{
+        "extra": "Tamaño",
+        "option": "Chico",
+        "price": 25.00
+    },{
+        "extra": "Carne",
+        "option": "Vaca",
+        "price": 45.50
+    }] 
+ */
+
+    /* Despues de todo esto, ya deberíamos tener el tempCart completo con info  */
+    var strCurrentCart = sessionStorage.getItem('cart');
+
+    if (strCurrentCart){ // If the cart was empty
+        strCurrentCart = strCurrentCart.slice(0, -1); // Delete the last ]
+        sessionStorage.setItem('cart', `${strCurrentCart},${JSON.stringify(tempCart)}]`);
+    }else{ // Crear el primer elemento para el carrito
+        sessionStorage.setItem('cart', `[${JSON.stringify(tempCart)}]`);
+    }
+
+    /* Re calcular el precio del carrito completo para mostrar al lado de carrito */
+    console.log('recalcular el precio que se muestra en el carrito en base al nuevo carrito');
+
+    closeOptionals();
+}
+function deleteFromCart (del_id){
+    console.log(`product id: ${del_id} -> deleted`);
+    // Should be deleted from the sessionStorage
+
+    // Should update the cart Modal
+}
+function viewCurrentCart(){
+    // Display a pop up modal in the document
+    var modal = document.getElementById("cart-modal");
+    modal.style.display = "block";
+    modal.scrollIntoView({behavior: "smooth"});
+
+    // Get each element in sessionStorage for htmlPayload
+    var objCurrentCart = JSON.parse(sessionStorage.getItem('cart'));
+    var htmlPayload = ' ';
+
+    if(!objCurrentCart) console.log("empty cart, block the terminarcarrito option, show something in the cart modal ");
+
+    $.each(objCurrentCart, function(i, item){
+        // Get the variants for this item
+        var variants_description = '';
+        var total_price = objCurrentCart[i].price;    
+
+        $.each(objCurrentCart[i].variants, function(j){
+            variants_description += `${objCurrentCart[i].variants[j].extra}: ${objCurrentCart[i].variants[j].option} | `;
+            total_price += objCurrentCart[i].variants[j].price;
+        })
+
+        htmlPayload += `<div class="product-card">
+            <img src="${objCurrentCart[i].image}" alt="">
+            <h3>${objCurrentCart[i].title}</h3>
+            <div class="close" id="0" onclick="deleteFromCart(this.id)">&#128465;</div>    
+            <p class="description" id="js-toclamp">${variants_description}</p>
+            <p class="price">$ ${total_price}</p>
+        </div>
+        `;
+    });
+    document.getElementById('cart-modal-product-table').innerHTML = htmlPayload;
+}
+function debug_addATestCart(){
+    // Get all the info from the current modal and add it to the sessionStorage
     var newItem = JSON.stringify(
         [{
             "title": "Ensalada Caprezanella_0",
@@ -55,119 +264,8 @@ function updateCart(){
     ]);
 
     // Store that info in newItem
-
     sessionStorage.setItem('cart', newItem);
-
-    // Get the cart stored in sessionStorage, append the newItem 2 to that, and close 
-
-    //var stored = sessionStorage.getItem('cart');
-
-    //console.log(typeof(stored));
-
-    
-    /*var newItem2 = JSON.stringify({
-        "sku": 1, 
-        "title": "El otro item",
-        "price": 280.99,
-        "variants": [{
-            "extra": "Tamaño",
-            "option": "De cancha",
-            "price": 25.00
-        }]
-    });*/
-
-    //var appended_str = '[' + stored + ',' + newItem2 + ']';
-
-    //console.log(JSON.parse(appended_str));
-
-
-
-    /* Now, with the data from the modal in cart_item... 
-
-    var cartCurrentStatus  = sessionStorage.getItem('cart');
-
-    console.log(typeof(cartCurrentStatus));    // string
-    
-    /* We check if something is in the cart right now 
-    if (cartCurrentStatus) {
-
-        /* Get the amount of items in the cart 
-        var i = JSON.parse(cartCurrentStatus).length;
-        
-        console.log(cartCurrentStatus);
-
-
-        var lastRecord = cartCurrentStatus.length;    
-
-        console.log(lastRecord);
-
-        cartCurrentStatus.sku++;
-
-
-
-        console.log(typeof(cartCurrentStatus)); //object
-        console.log(typeof(newItem));   //
-
-        //cartCurrentStatus.push(newItem);
-
-        sessionStorage.setItem('cart', JSON.stringify(cartCurrentStatus));
-
-    }else{
-        /* The cart is empty, store the newItem (string)  
-        sessionStorage.setItem('cart', newItem);
-    }
-    */
-
-    /* Re calcular el precio del carrito completo para mostrar al lado de carrito */
-    console.log('recalcular el precio que se muestra en el carrito en base al nuevo carrito');
-    closeOptionals();
 }
-
-function viewCurrentCart(){
-    // Display a pop up modal in the document
-    var modal = document.getElementById("cart-modal");
-    modal.style.display = "block";
-    modal.scrollIntoView({behavior: "smooth"});
-
-    // Get each element in sessionStorage for htmlPayload
-    var objCurrentCart = JSON.parse(sessionStorage.getItem('cart'));
-    var htmlPayload = ' ';
-
-    $.each(objCurrentCart, function(i, item){
-        // Get the variants for this item
-        var variants_description = '';
-        var total_price = objCurrentCart[i].price;    
-
-        $.each(objCurrentCart[i].variants, function(j){
-            variants_description += `${objCurrentCart[i].variants[j].extra}: ${objCurrentCart[i].variants[j].option} | `;
-            console.log(objCurrentCart[i].variants[j].price);
-            console.log(typeof(objCurrentCart[i].variants[j].price));
-
-            total_price += objCurrentCart[i].variants[j].price;
-        })
-
-        htmlPayload += `<div class="product-card">
-            <img src="${objCurrentCart[i].image}" alt="">
-            <h3>${objCurrentCart[i].title}</h3>
-            <div class="close" id="0" onclick="deleteFromCart(this.id)">&#128465;</div>    
-            <p class="description" id="js-toclamp">${variants_description}</p>
-            <p class="price">$ ${total_price}</p>
-        </div>
-        `;
-    });
-
-    console.log(htmlPayload);
-
-    document.getElementById('cart-modal-product-table').innerHTML = htmlPayload;
-}
-
-function deleteFromCart (del_id){
-    console.log(`product id: ${del_id} -> deleted`);
-    // Should be deleted from the sessionStorage
-
-    // SHould update the cart Modal
-}
-
 function displayCartOptions(payload){
     // Get the product sku from the pressed button id
     var product_sku = payload.substring(payload.indexOf('_') + 1, payload.length);
@@ -186,7 +284,7 @@ function displayCartOptions(payload){
                 <div style="display:none" id="category">${data[i].category}</div> 
                 <div style="display:none" id="title">${data[i].title}</div> 
                 <img src="${data[i].image}" alt="">   
-                <h3>${data[i].title} <i>$${data[i].price}</i></h3>
+                <h3>${data[i].title} <i id="item-price">$${data[i].price}</i></h3>
                 <div>${data[i].description}</div> 
                 `;
 
@@ -218,7 +316,6 @@ function displayCartOptions(payload){
             }
         });
     });
-
     var addToCartDiv = document.getElementById('btn-section');
 
     addToCartDiv.innerHTML = `<div id='${product_sku}' onclick="updateCart('add', this.id)"><p>Agregar al carrito</p></div>`;
@@ -241,17 +338,13 @@ function closeOptionals(){
     modal.innerHTML=`
     <div class="options-content">
         <span class="close" id="close-btn" onclick="closeOptionals()">&times;</span>
-
         <header id="options-content-header">
-
         </header>
         <table class="options-table" >
             <tbody id="optionsTable">
             </tbody>
         </table>
-
         <section id='btn-section'>
-            
         </section>
     </div>`;
 }
@@ -300,8 +393,6 @@ function updateModalPrice(reference, type, prices, amount_ref_id, listTypeIndex)
         }else{
             $(reference).parent().siblings('.table-ref-price')[0].innerText = '$' + final_price.toFixed(2);
         }
-
-
     }else{
         console.log(`Oops! Something is wrong with type ${type} not expected!`);
     } 
@@ -405,10 +496,10 @@ function mostrarInfo (){
 }
 
 function mostrarTienda (){
-  document.getElementById('products-section').style.display = 'grid';
-  document.getElementById('Mostrar-tutienda').style.borderBottom = '3px solid var(--details-color)';
-  document.getElementById('Mostrar-tuinfo').style.borderBottom = 'none';
-  document.getElementById('Info').style.display = 'none';
+    document.getElementById('products-section').style.display = 'grid';
+    document.getElementById('Mostrar-tutienda').style.borderBottom = '3px solid var(--details-color)';
+    document.getElementById('Mostrar-tuinfo').style.borderBottom = 'none';
+    document.getElementById('Info').style.display = 'none';
 }
 
 /* When document is loaded start creating the new page */

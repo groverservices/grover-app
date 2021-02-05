@@ -22,8 +22,8 @@
         "price": 280.99,
         "variants": [
             {"type": "list", "option": ["Chico", "Mediano", "De cancha"], "extra": "Tamaño","price": [null, null, 25.00] },
-            {"type": "amount", "extra": "Carne", "option": "Vaca", "price": 45.50},
-            {"type": "checkbox", "extra": "Carne", "option": "Salmón", "price": 150.00}
+            {"type": "amount", "extra": "Vaca", "price": 45.50},
+            {"type": "checkbox", "extra": "Salmón", "price": 150.00}
         ]
     },
     {

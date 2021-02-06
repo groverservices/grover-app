@@ -160,8 +160,8 @@
         "description": "Remeras de Algodón de excelente calidad",
         "price": 619.00,
         "variants": [
-            {"type": "list", "option": ["S", "M", "XXL"], "title": "Lista de talles","price": [null, 31.90, 25.00] },
-            {"type": "list", "option": ["Blanco", "Negro", "Gris"], "title": "Colores","price": [75.00, null, null] }
+            {"type": "list", "option": ["S", "M", "XXL"], "title": "Talle","price": [null, 31.90, 25.00] },
+            {"type": "list", "option": ["Blanco", "Negro", "Gris"], "title": "Color","price": [75.00, null, null] }
         ]
     }
 ]

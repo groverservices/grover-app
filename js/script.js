@@ -13,17 +13,22 @@ function sendCartToWhatsapp(){
     var info = sessionStorage.getItem('cart')
     var url = `https://wa.me/${g_phone_number}?text=Hola${newline}${info}?&lang=es`
 
-    var win = window.open(url, '_blank');
-    win.focus();
+    if (sessionStorage.getItem('cart')){
+        var win = window.open(url, '_blank');
+        win.focus();
+    }else{
+        console.warn("Cart is currently empty");
+        alert("Debe agregar items al carrito antes de continuar.");
+    }
+
+
 }
 function updateCart(option, element_id){
     // Scan the modal to get the variants choosen
     console.log(`element_id: ${element_id}`);
 
-    // Create the object to be pushed to the cart
-    // El item viene asi -> "Ensalada lista completa $280.99"
+    // Get the info for this product
     var payload = document.querySelector("#options-content-header > h3").innerText
-
     var tempPrice_s = payload.substring(payload.indexOf(' $')+1, payload.length);
 
     var tempCart = {
@@ -32,21 +37,6 @@ function updateCart(option, element_id){
         "price": parseFloat(tempPrice_s.replace('$', '')),
         "variants": []
     }
-
-/* CART EXAMPLE REGISTER
-    "title": "Ensalada lista completa",
-    "image": "https://res.cloudinary.com/goncy/image/upload/v1589486001/pency/biujlwqx8bvhbwqk3z2v.jpg",
-    "price": 412.99,
-    "variants": [{
-        "extra": "Tamaño",
-        "option": "Chico",
-        "price": 25.00
-    },{
-        "extra": "Carne",
-        "option": "Vaca",
-        "price": 45.50
-    }] 
- */
   
     $('#optionsTable tr').each(function(){
         /* Get the option name */
@@ -56,28 +46,24 @@ function updateCart(option, element_id){
         var optionType = $(this).find('td')[1].className;
 
         if (optionType == 'checkbox'){
+            var_title = var_title.substring(0, var_title.indexOf('(+ ') - 1);
+
             var checkbox_selected = $(this).find('td.checkbox input[type=checkbox]')[0].checked;
 
             if(checkbox_selected) {
-                console.log(`la chechbox ${var_title} esta estaba marcada`);
+                console.log(`la chechbox ${var_title} estaba marcada`);
 
                 var tempPrice_s = $(this).find('td.table-ref-price')[0].innerHTML;
                 var tempPrice_f = parseFloat(tempPrice_s.replace('$', ''));
-
-                /*tempVariants = {
-                    "extra": "Carne",
-                    "option": "Vaca",
-                    "price": 45.50
-                };*/
             
                 tempCart.variants.push({
-                    "extra": "",
+                    //"extra": "",
                     "option": var_title,
                     "price": tempPrice_f
                 });
             }
         }else if(optionType == 'amount'){
-            var var_title = $(this).find('td.options-table-title')[0].innerText;
+            var_title = var_title.substring(0, var_title.indexOf('(+ ') - 1);
 
             var amount_choosen = parseInt($(this).find('td.amount div p')[0].innerText);
 
@@ -87,83 +73,51 @@ function updateCart(option, element_id){
             /* Check if the U choosen 1 or more units */
             if (amount_choosen){
                 if (isNaN(opt_price_f)){ // The User choosen this, but its free */
-                    console.log (`${var_title} is Free`); 
+                    //console.log (`${var_title} is Free`); 
+                    opt_price_f = 0.00; // Replace the NaN
                 }
 
                 tempCart.variants.push({
-                    "extra": "",
+                    //"extra": "",
                     "option": var_title,
+                    "amount": amount_choosen,
                     "price": opt_price_f
                 });
-
-                console.log(`${var_title} | ${amount_choosen}  | ${opt_price_f}`);
             }
 
-            
-
-/* RENDERED TABLE EXAMPLE
-<tr>
-    <td class="options-table-title">Salmón    <i>(+ $150)</i></td>
-    <td class="checkbox">
-        <input type="checkbox" onchange="updateModalPrice(this, 'checkbox', 150, null)">
-    </td>
-    <td class="table-ref-price">
-    </td>
-</tr> 
-    if(type == 'checkbox'){
-        if($(reference)[0].checked && prices != 0){
-            $(reference).parent().siblings('.table-ref-price')[0].innerText = '$' + prices.toFixed(2);
-        }else{
-            $(reference).parent().siblings('.table-ref-price')[0].innerText = ''
-        }
-*/
         }else if(optionType == 'list'){
-            console.log(`Se eligio el ${optionType} ${var_title}`);
+            // -> Option title is var_title
+            // -> Here I just need the element choosen and its price
 
+            var options_list = $(this).find('td.list select option');
+
+            var opt_price_s = $(this).find('td.table-ref-price')[0].innerHTML;
+            var opt_price_f = parseFloat(opt_price_s.replace('$', ''));
+
+            if (isNaN(opt_price_f)){ // The User choosen this, but its free */
+                opt_price_f = 0.00; // Replace the NaN
+            }
+            
+            $.each(options_list, function(i){
+               
+                // Look for the selected option from this list
+                if (options_list[i].selected){
+
+                    console.log(options_list);
+
+                    console.warn(`list: ${var_title} | option choosen: ${true} | price: ${opt_price_f}`);
+
+                    tempCart.variants.push({
+                        "option": var_title,
+                        "item": options_list[i].innerText,
+                        "price": opt_price_f,
+                    })
+                }
+            });
         }else{
-            console.log(`Opss.. It seems that ${optionType} does not exists!.`);
+            console.error(`Oops.. It seems that ${optionType} does not exists!.`);
         }
     });
-
-/* Get the info for every type of type
-
-    }else if(type == 'amount'){
-        // prices -> referencia al precio unitario 
-        var unit_price = parseFloat(prices);
-
-        // amount_ref_id ->  id de la cantidad 
-        var amount = parseInt(document.getElementById(amount_ref_id).innerHTML);
-
-        /// reference -> elemento al que escribir el precio calculado 
-        var final_price = amount * unit_price;
-
-        if (final_price == 0){
-            $(reference).parent().parent().siblings('.table-ref-price')[0].innerText = '';
-        }else{
-            $(reference).parent().parent().siblings('.table-ref-price')[0].innerText = '$' + final_price.toFixed(2);
-        }
-    }else if(type == 'list'){
-        // List type element index
-        var list_index = listTypeIndex - 1;    
-
-        // Search the chosen option in g_listTypeData
-        var option_index = g_listTypeData.options[list_index].indexOf(reference.value)
-
-        // Get the price for that option
-        var final_price = parseFloat(g_listTypeData.price[list_index][option_index]);
-
-        if (isNaN(final_price)){
-            $(reference).parent().siblings('.table-ref-price')[0].innerText = '';
-        }else{
-            $(reference).parent().siblings('.table-ref-price')[0].innerText = '$' + final_price.toFixed(2);
-        }
-    }else{
-        console.log(`Oops! Something is wrong with type ${type} not expected!`);
-    } 
-
-*/
-    
-
 
     /* Despues de todo esto, ya deberíamos tener el tempCart completo con info  */
     var strCurrentCart = sessionStorage.getItem('cart');
@@ -177,16 +131,29 @@ function updateCart(option, element_id){
         sessionStorage.setItem('cart', `[${JSON.stringify(tempCart)}]`);
     }
 
-    /* Re calcular el precio del carrito completo para mostrar al lado de carrito */
-    console.log('recalcular el precio que se muestra en el carrito en base al nuevo carrito');
-
     closeOptionals();
 }
 function deleteFromCart (del_id){
     console.log(`product id: ${del_id} -> deleted`);
     // Should be deleted from the sessionStorage
+    var currentCart = JSON.parse(sessionStorage.getItem('cart'));
 
+    currentCart.splice(del_id, 1)
+
+    console.log(`Items actualmente en el carrito... ${currentCart.length}`);
+
+    if (currentCart.length > 0){
+        sessionStorage.setItem('cart', JSON.stringify(currentCart));
+    }else{
+        sessionStorage.removeItem('cart')
+    }
+    
     // Should update the cart Modal
+    viewCurrentCart();
+
+    // Should update the fixed footer
+
+
 }
 
 function hideEmptyCartMsg(opt){
@@ -205,7 +172,7 @@ function viewCurrentCart(){
     var htmlPayload = ' ';
 
     if(!objCurrentCart){
-        console.log("empty cart, block the terminarcarrito option, show something in the cart modal ");
+        console.log("empty cart, block the terminar carrito option, show something in the cart modal ");
         hideEmptyCartMsg(false);
     }else{
         hideEmptyCartMsg(true);
@@ -216,15 +183,17 @@ function viewCurrentCart(){
         var variants_description = '';
         var total_price = objCurrentCart[i].price;    
 
+        console.error("Here we make the descirption for the cart element");
+
         $.each(objCurrentCart[i].variants, function(j){
-            variants_description += `${objCurrentCart[i].variants[j].extra}: ${objCurrentCart[i].variants[j].option} | `;
+            variants_description += `${objCurrentCart[i].variants[j].option} ${objCurrentCart[i].variants[j].extra}:  | `;
             total_price += objCurrentCart[i].variants[j].price;
         })
 
         htmlPayload += `<div class="product-card">
             <img src="${objCurrentCart[i].image}" alt="">
             <h3>${objCurrentCart[i].title}</h3>
-            <div class="close" id="0" onclick="deleteFromCart(this.id)">&#128465;</div>    
+            <div class="close" id="${i}" onclick="deleteFromCart(this.id)">&#128465;</div>    
             <p class="description" id="js-toclamp">${variants_description}</p>
             <p class="price">$ ${total_price}</p>
         </div>
@@ -331,15 +300,30 @@ function closeCartModal (){
     var modal = document.getElementById("cart-modal");
     modal.style.display = "none";
 }
+function updateFixedCartFooter (){
+    const ref = document.querySelector("body > div.container > section > p > b");
+    const cart = JSON.parse(sessionStorage.getItem('cart'));
+    var acum_price = 0.00;
+
+    if (cart){
+        $.each(cart, function(i){
+            acum_price = acum_price + cart[i].price;
+
+            $.each(cart[i].vartiants, function(j){
+                acum_price = acum_price + cart[i].vartiants[j].price;
+            })
+            
+        })
+        ref.innerText = acum_price.toFixed(2);
+    }
+}
 
 // Hide the modal if the user clicks the X or outside the window
 function closeOptionals(){
     var modal = document.getElementById("modal");
     modal.style.display = "none";
 
-    /* Also, when the modal is closed, we should clear the tempProduct from sessionStorage */
-    console.log("delete the next line")
-    sessionStorage.removeItem("temp");
+    updateFixedCartFooter ();
 
     /* Clear the modal for next use */
     modal.innerHTML=`
@@ -401,7 +385,7 @@ function updateModalPrice(reference, type, prices, amount_ref_id, listTypeIndex)
             $(reference).parent().siblings('.table-ref-price')[0].innerText = '$' + final_price.toFixed(2);
         }
     }else{
-        console.log(`Oops! Something is wrong with type ${type} not expected!`);
+        console.error(`Oops! Something is wrong with type ${type} not expected!`);
     } 
 }
 
@@ -573,9 +557,9 @@ $(document).ready(function(){
             $("#products-section").append(cardHtmlPayload);
         }
     });
-});
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+    updateFixedCartFooter ();
+}); // END OF $(document).ready()
+window.onclick = function(event) { // When the user clicks anywhere outside of the modal, close it
     if (event.target == document.getElementById("modal")) {
         document.getElementById("modal").style.display = "none";
 

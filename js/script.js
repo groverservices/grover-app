@@ -28,68 +28,76 @@ function updateCart(option, element_id){
     var payload = document.querySelector("#options-content-header > h3").innerText
 
     var tempPrice_s = payload.substring(payload.indexOf(' $')+1, payload.length);
-    tempPrice_s = tempPrice_s.replace('$', '');
-
-    var tempPrice = parseFloat(tempPrice_s);
 
     var tempCart = {
         "title": payload.substring(0, payload.indexOf(' $')),
         "image": document.querySelector("#options-content-header > img").src,
-        "price": tempPrice,
+        "price": parseFloat(tempPrice_s.replace('$', '')),
         "variants": []
     }
 
-    console.log(tempCart);
-    
+/* CART EXAMPLE REGISTER
+    "title": "Ensalada lista completa",
+    "image": "https://res.cloudinary.com/goncy/image/upload/v1589486001/pency/biujlwqx8bvhbwqk3z2v.jpg",
+    "price": 412.99,
+    "variants": [{
+        "extra": "Tamaño",
+        "option": "Chico",
+        "price": 25.00
+    },{
+        "extra": "Carne",
+        "option": "Vaca",
+        "price": 45.50
+    }] 
+ */
+  
     $('#optionsTable tr').each(function(){
         /* Get the option name */
-        var titulo = $(this).find('td.options-table-title')[0].innerText;
-
-/* RENDERED TABLE EXAMPLE
-<tr>
-    <td class="options-table-title">Tamaño</td>
-    <td class="list">
-        <select class="list" onchange="updateModalPrice(this, 'list', null, null, 1)">
-            <option disabled="" selected="" value=""> -- Tamaño -- </option><option value="Chico"> Chico</option><option value="Mediano"> Mediano</option><option value="De cancha"> De cancha(+ $25)</option>
-        </select>
-    </td>
-    <td class="table-ref-price">
-    </td>
-</tr>
-<tr>
-    <td class="options-table-title">Vaca    <i>(+ $45.5)</i></td>
-    <td class="amount">
-        <div class="number-add-substract" style="margin: auto;">
-            <button type="button" aria-label="restar" class="css-p6o1lj" onclick="updateModalAmountVariable(false, 'Vaca', this, '45.5')">
-                <svg viewBox="0 0 24 24" focusable="false" role="presentation" aria-hidden="true" class="css-1im46kq">
-                    <g fill="currentColor">
-                        <rect height="4" width="20" x="2" y="10"></rect>
-                    </g>
-                </svg>
-            </button>
-            <p id="Vaca-amount">0</p> 
-            <button type="button" aria-label="sumar" class="css-1lq1pnb" onclick="updateModalAmountVariable(true, 'Vaca', this, '45.5')">
-                <svg viewBox="0 0 24 24" focusable="false" role="presentation" aria-hidden="true" class="css-1im46kq">
-                    <path fill="currentColor" d="M0,12a1.5,1.5,0,0,0,1.5,1.5h8.75a.25.25,0,0,1,.25.25V22.5a1.5,1.5,0,0,0,3,0V13.75a.25.25,0,0,1,.25-.25H22.5a1.5,1.5,0,0,0,0-3H13.75a.25.25,0,0,1-.25-.25V1.5a1.5,1.5,0,0,0-3,0v8.75a.25.25,0,0,1-.25.25H1.5A1.5,1.5,0,0,0,0,12Z"></path>
-                </svg>
-            </button>
-        </div>
-    </td>
-    <td class="table-ref-price">
-    </td>
-</tr>*/
+        var var_title = $(this).find('td.options-table-title')[0].innerText;
 
         /* Get the option choosen */
         var optionType = $(this).find('td')[1].className;
 
         if (optionType == 'checkbox'){
             var checkbox_selected = $(this).find('td.checkbox input[type=checkbox]')[0].checked;
-            if(checkbox_selected) {
 
+            if(checkbox_selected) {
+                console.log(`la chechbox ${var_title} esta estaba marcada`);
+
+                var tempPrice_s = $(this).find('td.table-ref-price')[0].innerHTML;
+                var tempPrice_f = parseFloat(tempPrice_s.replace('$', ''));
+
+                /*tempVariants = {
+                    "extra": "Carne",
+                    "option": "Vaca",
+                    "price": 45.50
+                };*/
+            
+                tempCart.variants.push({
+                    "extra": "",
+                    "option": var_title,
+                    "price": tempPrice_f
+                });
             }
+        }else if(optionType == 'amount'){
+            var var_title = $(this).find('td.options-table-title')[0].innerText;
+
+            var amount_choosen = parseInt($(this).find('td.amount div p')[0].innerText);
+
+            var opt_price_s = $(this).find('td.table-ref-price')[0].innerHTML;
+            var opt_price_f = parseFloat(opt_price_s.replace('$', ''));
+
+            /* Check if this was actually choosen */
+            if (amount_choosen){
+                if (isNaN(opt_price_f)){ // The User choosen this, but its free */
+                    console.log (`${var_title} is Free`); 
+                }
+                console.log(`${var_title} | ${amount_choosen}  | ${opt_price_f}`);
+            }
+
             
 
-/*
+/* RENDERED TABLE EXAMPLE
 <tr>
     <td class="options-table-title">Salmón    <i>(+ $150)</i></td>
     <td class="checkbox">
@@ -105,12 +113,8 @@ function updateCart(option, element_id){
             $(reference).parent().siblings('.table-ref-price')[0].innerText = ''
         }
 */
-
-
-            
-        }else if(optionType == 'amount'){
-
         }else if(optionType == 'list'){
+            console.log(`Se eligio el ${optionType} ${var_title}`);
 
         }else{
             console.log(`Opss.. It seems that ${optionType} does not exists!.`);
@@ -155,21 +159,7 @@ function updateCart(option, element_id){
 
 */
     
-    
-/* CART EXAMPLE REGISTER
-    "title": "Ensalada lista completa",
-    "image": "https://res.cloudinary.com/goncy/image/upload/v1589486001/pency/biujlwqx8bvhbwqk3z2v.jpg",
-    "price": 412.99,
-    "variants": [{
-        "extra": "Tamaño",
-        "option": "Chico",
-        "price": 25.00
-    },{
-        "extra": "Carne",
-        "option": "Vaca",
-        "price": 45.50
-    }] 
- */
+
 
     /* Despues de todo esto, ya deberíamos tener el tempCart completo con info  */
     var strCurrentCart = sessionStorage.getItem('cart');
@@ -177,7 +167,9 @@ function updateCart(option, element_id){
     if (strCurrentCart){ // If the cart was empty
         strCurrentCart = strCurrentCart.slice(0, -1); // Delete the last ]
         sessionStorage.setItem('cart', `${strCurrentCart},${JSON.stringify(tempCart)}]`);
+
     }else{ // Crear el primer elemento para el carrito
+
         sessionStorage.setItem('cart', `[${JSON.stringify(tempCart)}]`);
     }
 
@@ -192,6 +184,12 @@ function deleteFromCart (del_id){
 
     // Should update the cart Modal
 }
+
+function hideEmptyCartMsg(opt){
+    if (opt) $('#EmptyCartMsg').hide();
+    else $('#EmptyCartMsg').show();
+}
+
 function viewCurrentCart(){
     // Display a pop up modal in the document
     var modal = document.getElementById("cart-modal");
@@ -202,8 +200,13 @@ function viewCurrentCart(){
     var objCurrentCart = JSON.parse(sessionStorage.getItem('cart'));
     var htmlPayload = ' ';
 
-    if(!objCurrentCart) console.log("empty cart, block the terminarcarrito option, show something in the cart modal ");
-
+    if(!objCurrentCart){
+        console.log("empty cart, block the terminarcarrito option, show something in the cart modal ");
+        hideEmptyCartMsg(false);
+    }else{
+        hideEmptyCartMsg(true);
+    }
+    
     $.each(objCurrentCart, function(i, item){
         // Get the variants for this item
         var variants_description = '';

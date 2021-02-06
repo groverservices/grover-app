@@ -12,7 +12,7 @@
             {"type": "amount", "title": "Cañerias (x Mts)", "price": 45.50}
         ]
     },{
-        "sku": 0, 
+        "sku": 1, 
         "category": "Aires acondicionados",
         "title":  "Aire acondicionado BGH portátil frío/calor",
         "image": "https://http2.mlstatic.com/D_NQ_NP_920202-MLA44739123846_012021-O.webp",
@@ -25,7 +25,7 @@
             {"type": "amount", "title": "Cañerias (x Mts)", "price": 45.50}
         ]
     },{
-        "sku": 1, 
+        "sku": 2, 
         "category": "Ensaladas",
         "title": "Ensalada lista completa",
         "image": "https://res.cloudinary.com/goncy/image/upload/v1589486001/pency/biujlwqx8bvhbwqk3z2v.jpg",
@@ -38,27 +38,11 @@
         ]
     },
     {
-        "sku": 2, 
+        "sku": 3, 
         "category": "Ensaladas",
         "title": "Ensalada italiana picada_2",
         "image": "https://res.cloudinary.com/goncy/image/upload/v1589486001/pency/biujlwqx8bvhbwqk3z2v.jpg",
         "description": "Lechuga con achicoria, salami, tomate, cebolla, garbanzos, pepperoncini, parmesano y vinagreta.",
-        "price": 280.99,
-        "variants": [
-            {"type": "amount", "option": "Carne", "title": "Pollo","price": 0.00},
-            {"type": "amount", "option": "Carne", "title": "Cerdo", "price": 50.00},
-            {"type": "amount", "option": "Carne", "title": "Salmón", "price": 100.00},
-            {"type": "amount", "option": "Queso", "title": "Gouda", "price": 10.00},
-            {"type": "amount", "option": "Queso", "title": "Fontina", "price": 70.00},
-            {"type": "amount", "option": "Queso", "title": "Roquefort", "price": 100.00}
-        ]
-    },
-    {
-        "sku": 3, 
-        "category": "Ensaladas",
-        "title":  "Ensalada Caprezanella_3",
-        "image": "https://res.cloudinary.com/goncy/image/upload/v1589485873/pency/ffztrxszbauvihsgnjgq.jpg",
-        "description": "Tomate, pepino, cebolla roja, mozzarella fresca, picatostes, albahaca y vinagreta de vino tinto.",
         "price": 280.99,
         "variants": [
             {"type": "amount", "option": "Carne", "title": "Pollo","price": 0.00},

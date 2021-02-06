@@ -20,13 +20,8 @@ function sendCartToWhatsapp(){
         console.warn("Cart is currently empty");
         alert("Debe agregar items al carrito antes de continuar.");
     }
-
-
 }
-function updateCart(option, element_id){
-    // Scan the modal to get the variants choosen
-    console.log(`element_id: ${element_id}`);
-
+function updateCart(element_id){
     // Get the info for this product
     var payload = document.querySelector("#options-content-header > h3").innerText
     var tempPrice_s = payload.substring(payload.indexOf(' $')+1, payload.length);
@@ -152,7 +147,7 @@ function deleteFromCart (del_id){
     viewCurrentCart();
 
     // Should update the fixed footer
-
+    updateFixedCartFooter ()
 
 }
 
@@ -172,7 +167,6 @@ function viewCurrentCart(){
     var htmlPayload = ' ';
 
     if(!objCurrentCart){
-        console.log("empty cart, block the terminar carrito option, show something in the cart modal ");
         hideEmptyCartMsg(false);
     }else{
         hideEmptyCartMsg(true);
@@ -183,7 +177,7 @@ function viewCurrentCart(){
         var variants_description = '';
         var total_price = objCurrentCart[i].price;    
 
-        console.error("Here we make the descirption for the cart element");
+        console.warn("Here we make the descirption for the cart element");
 
         $.each(objCurrentCart[i].variants, function(j){
             variants_description += `${objCurrentCart[i].variants[j].option} ${objCurrentCart[i].variants[j].extra}:  | `;
@@ -200,47 +194,6 @@ function viewCurrentCart(){
         `;
     });
     document.getElementById('cart-modal-product-table').innerHTML = htmlPayload;
-}
-function debug_addATestCart(){
-    // Get all the info from the current modal and add it to the sessionStorage
-    var newItem = JSON.stringify(
-        [{
-            "title": "Ensalada Caprezanella_0",
-            "image": "https://res.cloudinary.com/goncy/image/upload/v1589485873/pency/ffztrxszbauvihsgnjgq.jpg",
-            "price": 280.99,
-            "variants": [{
-                "extra": "Tamaño",
-                "option": "Grande",
-                "price": 25.00
-            }]
-        },{
-            "title": "Ensalada lista completa",
-            "image": "https://res.cloudinary.com/goncy/image/upload/v1589486001/pency/biujlwqx8bvhbwqk3z2v.jpg",
-            "price": 412.99,
-            "variants": [{
-                "extra": "Tamaño",
-                "option": "Chico",
-                "price": 25.00
-            },{
-                "extra": "Carne",
-                "option": "Vaca",
-                "price": 45.50
-            }]
-        },
-        {
-            "title": "Ensalada Caprezanella_0",
-            "image": "https://res.cloudinary.com/goncy/image/upload/v1589485873/pency/ffztrxszbauvihsgnjgq.jpg",
-            "price": 280.99,
-            "variants": [{
-                "extra": "Tamaño",
-                "option": "Grande",
-                "price": 25.00
-            }]
-        }
-    ]);
-
-    // Store that info in newItem
-    sessionStorage.setItem('cart', newItem);
 }
 function displayCartOptions(payload){
     // Get the product sku from the pressed button id
@@ -294,7 +247,7 @@ function displayCartOptions(payload){
     });
     var addToCartDiv = document.getElementById('btn-section');
 
-    addToCartDiv.innerHTML = `<div id='${product_sku}' onclick="updateCart('add', this.id)"><p>Agregar al carrito</p></div>`;
+    addToCartDiv.innerHTML = `<div id='${product_sku}' onclick="updateCart(this.id)"><p>Agregar al carrito</p></div>`;
 }
 function closeCartModal (){
     var modal = document.getElementById("cart-modal");
@@ -302,20 +255,21 @@ function closeCartModal (){
 }
 function updateFixedCartFooter (){
     const ref = document.querySelector("body > div.container > section > p > b");
-    const cart = JSON.parse(sessionStorage.getItem('cart'));
+    var cart = JSON.parse(sessionStorage.getItem('cart'));
     var acum_price = 0.00;
 
     if (cart){
         $.each(cart, function(i){
             acum_price = acum_price + cart[i].price;
 
-            $.each(cart[i].vartiants, function(j){
-                acum_price = acum_price + cart[i].vartiants[j].price;
+            $.each(cart[i].variants, function(j){
+                acum_price = acum_price + cart[i].variants[j].price;
             })
-            
         })
-        ref.innerText = acum_price.toFixed(2);
-    }
+        ref.innerText = `($ ${acum_price.toFixed(2)})`;
+    }else{
+        ref.innerText = `(vacío)`;
+    }   
 }
 
 // Hide the modal if the user clicks the X or outside the window

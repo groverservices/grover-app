@@ -17,9 +17,6 @@ function sendCartToWhatsapp(){
     win.focus();
 }
 function updateCart(option, element_id){
-    //debug_addATestCart();
-    var currentCart = JSON.parse(sessionStorage.getItem('cart'));
-
     // Scan the modal to get the variants choosen
     console.log(`element_id: ${element_id}`);
 
@@ -87,11 +84,18 @@ function updateCart(option, element_id){
             var opt_price_s = $(this).find('td.table-ref-price')[0].innerHTML;
             var opt_price_f = parseFloat(opt_price_s.replace('$', ''));
 
-            /* Check if this was actually choosen */
+            /* Check if the U choosen 1 or more units */
             if (amount_choosen){
                 if (isNaN(opt_price_f)){ // The User choosen this, but its free */
                     console.log (`${var_title} is Free`); 
                 }
+
+                tempCart.variants.push({
+                    "extra": "",
+                    "option": var_title,
+                    "price": opt_price_f
+                });
+
                 console.log(`${var_title} | ${amount_choosen}  | ${opt_price_f}`);
             }
 
@@ -307,10 +311,10 @@ function displayCartOptions(payload){
                     if(data[i].variants[j].type == 'list') listTypeIndex++;
         
                     if (createModalList(optionsTable,
-                        data[i].variants[j].type,
-                        data[i].variants[j].option,
-                        data[i].variants[j].extra,
-                        data[i].variants[j].price,
+                        data[i].variants[j].type,   
+                        data[i].variants[j].option, /* Options available (Lists type only) */
+                        data[i].variants[j].title,  /* Variant name */
+                        data[i].variants[j].price,  /* Price for each unit of variant */
                         listTypeIndex)){
                     }else{
                         console.log ("No variant on sku " + data[i].sku + " variant: " + data[i].variants[j].type);
@@ -403,6 +407,13 @@ function updateModalPrice(reference, type, prices, amount_ref_id, listTypeIndex)
 
 // Load the modal table with info from variants in elements in products.json
 function createModalList(HTMLreference, modalType, variantOptions, variantTitle, variantPrice, listTypeIndex){
+/*
+    data[i].variants[j].option  ->  variantOptions
+    data[i].variants[j].extra   ->  variantTitle
+    data[i].variants[j].price   ->  variantPrice
+    listTypeIndex               ->  listTypeIndex
+*/
+
     var htmlPayload = '';
     if(modalType == 'checkbox'){
         htmlPayload =

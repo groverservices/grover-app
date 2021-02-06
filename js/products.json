@@ -1,19 +1,30 @@
 [
     {
         "sku": 0, 
-        "category": "Ensaladas",
-        "title":  "Ensalada Caprezanella_0",
-        "image": "https://res.cloudinary.com/goncy/image/upload/v1589485873/pency/ffztrxszbauvihsgnjgq.jpg",
-        "description": "Tomate, pepino, cebolla roja, mozzarella fresca, picatostes, albahaca y vinagreta de vino tinto.",
-        "price": 280.99,
+        "category": "Aires acondicionados",
+        "title":  "Aire acondicionado Philco split frío/calor",
+        "image": "https://http2.mlstatic.com/D_NQ_NP_665546-MLA40123324711_122019-O.webp",
+        "description": "Reducción de humedad y temperatura constante La función \"deshumidificación\" reduce la humedad que influye en la sensación térmica, y así, vas a mejorar la calidad de tu ambiente. Programá el encendido de acuerdo a tus necesidades. Con el timer vas a poder programar su encendido o apagado a la hora que quieras y disfrutar así de un clima ideal apenas ingresás a tu casa. Cuando las personas descansan, su temperatura corporal baja gradualmente. Por eso, este aire cuenta con la función Sleep, que hace que la temperatura del ambiente aumente a medida que pasa el tiempo. ¡Ya no vas a tener que preocuparte por levantarte a apagarlo y podrás disfrutar de un sueño placentero!",
+        "price": 64300.00,
         "variants": [
-            {"type": "checkbox", "option": "Opcional", "extra": "Sin Tomate", "price": 0.00},
-            {"type": "checkbox", "option": "Opcional", "extra": "Sin Pepino", "price": 0.00},
-            {"type": "checkbox", "option": "Opcional", "extra": "Sin Cebolla", "price": 0.00},
-            {"type": "checkbox", "option": "Opcional", "extra": "Sin Mozzarella", "price": 0.00}
+            {"type": "list",  "title": "Tamaño", "option": ["2500 frigorias", "3500 frigorias", "4500 frigorias"], "price": [null, 5800, 12900]},
+            {"type": "checkbox", "title": "Garantía extendida", "price": 2499.99},
+            {"type": "amount", "title": "Cañerias (x Mts)", "price": 45.50}
         ]
-    },
-    {
+    },{
+        "sku": 0, 
+        "category": "Aires acondicionados",
+        "title":  "Aire acondicionado BGH portátil frío/calor",
+        "image": "https://http2.mlstatic.com/D_NQ_NP_920202-MLA44739123846_012021-O.webp",
+        "description": "Programá el encendido de acuerdo a tus necesidades Cuando las personas descansan, su temperatura corporal baja gradualmente. Por eso, este aire cuenta con la función Sleep, que hace que la temperatura del ambiente aumente a medida que pasa el tiempo. ¡Ya no vas a tener que preocuparte por levantarte a apagarlo y podrás disfrutar de un sueño placentero!",
+        "price": 41999.00,
+        "variants": [
+            {"type": "list",  "title": "Tamaño", "option": ["2500 frigorias", "3500 frigorias", "4500 frigorias"], "price": [null, 5800, 12900]},
+            {"type": "checkbox", "title": "Garantía extendida", "price": 2499.99},
+            {"type": "checkbox", "title": "12 Cuotas con recargo", "price": 4199.9},
+            {"type": "amount", "title": "Cañerias (x Mts)", "price": 45.50}
+        ]
+    },{
         "sku": 1, 
         "category": "Ensaladas",
         "title": "Ensalada lista completa",
@@ -21,9 +32,9 @@
         "description": "Lechuga con achicoria, salami, tomate, cebolla, garbanzos, pepperoncini, parmesano y vinagreta.",
         "price": 280.99,
         "variants": [
-            {"type": "list", "option": ["Chico", "Mediano", "De cancha"], "extra": "Tamaño","price": [null, null, 25.00] },
-            {"type": "amount", "extra": "Vaca", "price": 45.50},
-            {"type": "checkbox", "extra": "Salmón", "price": 150.00}
+            {"type": "list", "option": ["Chico", "Mediano", "De cancha"], "title": "Tamaño","price": [null, null, 25.00] },
+            {"type": "amount", "title": "Vaca", "price": 45.50},
+            {"type": "checkbox", "title": "Salmón", "price": 150.00}
         ]
     },
     {
@@ -34,12 +45,12 @@
         "description": "Lechuga con achicoria, salami, tomate, cebolla, garbanzos, pepperoncini, parmesano y vinagreta.",
         "price": 280.99,
         "variants": [
-            {"type": "amount", "option": "Carne", "extra": "Pollo","price": 0.00},
-            {"type": "amount", "option": "Carne", "extra": "Cerdo", "price": 50.00},
-            {"type": "amount", "option": "Carne", "extra": "Salmón", "price": 100.00},
-            {"type": "amount", "option": "Queso", "extra": "Gouda", "price": 10.00},
-            {"type": "amount", "option": "Queso", "extra": "Fontina", "price": 70.00},
-            {"type": "amount", "option": "Queso", "extra": "Roquefort", "price": 100.00}
+            {"type": "amount", "option": "Carne", "title": "Pollo","price": 0.00},
+            {"type": "amount", "option": "Carne", "title": "Cerdo", "price": 50.00},
+            {"type": "amount", "option": "Carne", "title": "Salmón", "price": 100.00},
+            {"type": "amount", "option": "Queso", "title": "Gouda", "price": 10.00},
+            {"type": "amount", "option": "Queso", "title": "Fontina", "price": 70.00},
+            {"type": "amount", "option": "Queso", "title": "Roquefort", "price": 100.00}
         ]
     },
     {
@@ -50,12 +61,12 @@
         "description": "Tomate, pepino, cebolla roja, mozzarella fresca, picatostes, albahaca y vinagreta de vino tinto.",
         "price": 280.99,
         "variants": [
-            {"type": "amount", "option": "Carne", "extra": "Pollo","price": 0.00},
-            {"type": "amount", "option": "Carne", "extra": "Cerdo", "price": 50.00},
-            {"type": "amount", "option": "Carne", "extra": "Salmón", "price": 100.00},
-            {"type": "amount", "option": "Queso", "extra": "Gouda", "price": 10.00},
-            {"type": "amount", "option": "Queso", "extra": "Fontina", "price": 70.00},
-            {"type": "amount", "option": "Queso", "extra": "Roquefort", "price": 100.00}
+            {"type": "amount", "option": "Carne", "title": "Pollo","price": 0.00},
+            {"type": "amount", "option": "Carne", "title": "Cerdo", "price": 50.00},
+            {"type": "amount", "option": "Carne", "title": "Salmón", "price": 100.00},
+            {"type": "amount", "option": "Queso", "title": "Gouda", "price": 10.00},
+            {"type": "amount", "option": "Queso", "title": "Fontina", "price": 70.00},
+            {"type": "amount", "option": "Queso", "title": "Roquefort", "price": 100.00}
         ]
     },
     {
@@ -66,12 +77,12 @@
         "description": "Lechuga con achicoria, salami, tomate, cebolla, garbanzos, pepperoncini, parmesano y vinagreta.",
         "price": 280.99,
         "variants": [
-            {"type": "amount", "option": "Carne", "extra": "Pollo","price": 0.00},
-            {"type": "amount", "option": "Carne", "extra": "Cerdo", "price": 50.00},
-            {"type": "amount", "option": "Carne", "extra": "Salmón", "price": 100.00},
-            {"type": "amount", "option": "Queso", "extra": "Gouda", "price": 10.00},
-            {"type": "amount", "option": "Queso", "extra": "Fontina", "price": 70.00},
-            {"type": "amount", "option": "Queso", "extra": "Roquefort", "price": 100.00}
+            {"type": "amount", "option": "Carne", "title": "Pollo","price": 0.00},
+            {"type": "amount", "option": "Carne", "title": "Cerdo", "price": 50.00},
+            {"type": "amount", "option": "Carne", "title": "Salmón", "price": 100.00},
+            {"type": "amount", "option": "Queso", "title": "Gouda", "price": 10.00},
+            {"type": "amount", "option": "Queso", "title": "Fontina", "price": 70.00},
+            {"type": "amount", "option": "Queso", "title": "Roquefort", "price": 100.00}
         ]
     },
     {
@@ -82,10 +93,10 @@
         "description": "Lechuga con achicoria, salami, tomate, cebolla, garbanzos, pepperoncini, parmesano y vinagreta.",
         "price": 280.99,
         "variants": [
-            {"type": "checkbox", "option": "Extra", "extra": "Pollo","price": 0.00},
-            {"type": "checkbox", "option": "Extra", "extra": "Cerdo", "price": 50.00},
-            {"type": "amount", "option": "Extra", "extra": "Salmón", "price": 100.00},
-            {"type": "checkbox", "option": "Extra", "extra": "Gouda", "price": 10.00}
+            {"type": "checkbox", "option": "title", "title": "Pollo","price": 0.00},
+            {"type": "checkbox", "option": "title", "title": "Cerdo", "price": 50.00},
+            {"type": "amount", "option": "title", "title": "Salmón", "price": 100.00},
+            {"type": "checkbox", "option": "title", "title": "Gouda", "price": 10.00}
         ]
     },
     {
@@ -96,8 +107,8 @@
         "description": "Salsa de tomate, albahaca fresca, mozzarella fresca y parmesano.",
         "price": 520.63,
         "variants": [
-            {"type": "checkbox", "option": "Adicionales", "extra": "Aceitunas","price": 10.00},
-            {"type": "checkbox", "option": "Adicionales", "extra": "Huevo", "price": 20.00}
+            {"type": "checkbox", "option": "Adicionales", "title": "Aceitunas","price": 10.00},
+            {"type": "checkbox", "option": "Adicionales", "title": "Huevo", "price": 20.00}
         ]
     },
     {
@@ -108,8 +119,8 @@
         "description": "Salsa de tomate, albahaca fresca, mozzarella fresca y parmesano.",
         "price": 520.63,
         "variants": [
-            {"type": "checkbox", "option": "Adicionales", "extra": "Aceitunas","price": 10.00},
-            {"type": "checkbox", "option": "Adicionales", "extra": "Huevo", "price": 20.00}
+            {"type": "checkbox", "option": "Adicionales", "title": "Aceitunas","price": 10.00},
+            {"type": "checkbox", "option": "Adicionales", "title": "Huevo", "price": 20.00}
         ]
     },
     {
@@ -120,12 +131,12 @@
         "description": "Lechuga con achicoria, salami, tomate, cebolla, garbanzos, pepperoncini, parmesano y vinagreta.",
         "price": 280.99,
         "variants": [
-            {"option": "Carne", "extra": "Pollo","price": 0.00},
-            {"option": "Carne", "extra": "Cerdo", "price": 50.00},
-            {"option": "Carne", "extra": "Salmón", "price": 100.00},
-            {"option": "Queso", "extra": "Gouda", "price": 10.00},
-            {"option": "Queso", "extra": "Fontina", "price": 70.00},
-            {"option": "Queso", "extra": "Roquefort", "price": 100.00}
+            {"option": "Carne", "title": "Pollo","price": 0.00},
+            {"option": "Carne", "title": "Cerdo", "price": 50.00},
+            {"option": "Carne", "title": "Salmón", "price": 100.00},
+            {"option": "Queso", "title": "Gouda", "price": 10.00},
+            {"option": "Queso", "title": "Fontina", "price": 70.00},
+            {"option": "Queso", "title": "Roquefort", "price": 100.00}
         ]
     },
     {
@@ -136,8 +147,8 @@
         "description": "Salsa de tomate, albahaca fresca, mozzarella fresca y parmesano.",
         "price": 520.63,
         "variants": [
-            {"option": "Adicionales", "extra": "Aceitunas","price": 10.00},
-            {"option": "Adicionales", "extra": "Huevo", "price": 20.00}
+            {"option": "Adicionales", "title": "Aceitunas","price": 10.00},
+            {"option": "Adicionales", "title": "Huevo", "price": 20.00}
 
         ]
     },
@@ -149,8 +160,8 @@
         "description": "Remeras de Algodón de excelente calidad",
         "price": 619.00,
         "variants": [
-            {"type": "list", "option": ["S", "M", "XXL"], "extra": "Lista de talles","price": [null, 31.90, 25.00] },
-            {"type": "list", "option": ["Blanco", "Negro", "Gris"], "extra": "Colores","price": [75.00, null, null] }
+            {"type": "list", "option": ["S", "M", "XXL"], "title": "Lista de talles","price": [null, 31.90, 25.00] },
+            {"type": "list", "option": ["Blanco", "Negro", "Gris"], "title": "Colores","price": [75.00, null, null] }
         ]
     }
 ]

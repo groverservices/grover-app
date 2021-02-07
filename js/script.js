@@ -102,9 +102,13 @@ function updateCart(element_id){
 
                     console.warn(`list: ${var_title} | option choosen: ${true} | price: ${opt_price_f}`);
 
+                    var option_name = options_list[i].innerText
+
+                    option_name = option_name.substring(0, var_title.indexOf('(+ ') - 1);
+
                     tempCart.variants.push({
                         "option": var_title,
-                        "item": options_list[i].innerText,
+                        "item": option_name,
                         "price": opt_price_f,
                     })
                 }
@@ -180,8 +184,28 @@ function viewCurrentCart(){
         console.warn("Here we make the descirption for the cart element");
 
         $.each(objCurrentCart[i].variants, function(j){
-            variants_description += `${objCurrentCart[i].variants[j].option} ${objCurrentCart[i].variants[j].extra}:  | `;
-            total_price += objCurrentCart[i].variants[j].price;
+
+            /* {
+                    option: "Tamaño", item: " 3500 frigorias(+ $5800)", price: 5800
+                }
+                
+                item: " 3500 frigorias(+ $5800)"
+                option: "Tamaño"
+                price: 5800 */
+
+            /* Tamaño: 3500 Frigorias (+ $5800) */
+            variants_description += `${objCurrentCart[i].variants[j].option}: `;
+            variants_description += `${objCurrentCart[i].variants[j].item}`;
+            variants_description += `(+ $${objCurrentCart[i].variants[j].price})`;
+
+            /* */
+            
+            
+
+            console.log(objCurrentCart[i].variants[j]);
+
+            /*variants_description += `${objCurrentCart[i].variants[j].option} ${objCurrentCart[i].variants[j].extra}:  | `;
+            total_price += objCurrentCart[i].variants[j].price;*/
         })
 
         htmlPayload += `<div class="product-card">
@@ -520,6 +544,7 @@ window.onclick = function(event) { // When the user clicks anywhere outside of t
         // closeOptionals will not affect again if the modal is already closed
         // But it will clear the tempProduct memory
         closeOptionals();
+        closeCartModal();
     }
 }
 // Get and fill the information about the page owner from owner.json 

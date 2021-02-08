@@ -1,10 +1,10 @@
 {
     "cover_img":"img/cover.jpg",
-    "profile_img": "img/profile.jpg",
-    "title": "Minutas tu tía",
-    "sub_title": "Más rápido que la Fórmula 1",
-    "address": "Avenida Siempre Viva 789",
-    "maps_link": "http://www.google.com.ar",
+    "profile_img": "img/demo/lr-logo-w.png",
+    "title": "Fresco Demo",
+    "sub_title": "Productos orgánicos, 100% integrales, sin conservantes ni agregados. Usamos ingredientes de primera calidad",
+    "address": "Av. Siempre Viva 742",
+    "maps_link": "https://goo.gl/maps/k8gSKC6sAh46djmh9",
     "banners":[
         {"priority": "low", "data":"COVID-19: Trabajamos solo con envíos."}
     ],

@@ -124,7 +124,8 @@ a{
     vertical-align: middle;
     border-style: solid;
     border-color: var(--background-color);
-    border-width: 5px;
+    border-width: 7px;
+    transform: scale(1.01);
 }
 .header-text{
     padding-left: 2em;

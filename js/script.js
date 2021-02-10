@@ -9,22 +9,21 @@ var g_phone_number = '';
 
 function sendCartToWhatsapp(){
     var newline = '%0A';
-    var space = '%20';
     var info = JSON.parse(sessionStorage.getItem('cart'));
 
     var url = `https://wa.me/${g_phone_number}?text=`;
 
     var total_price = 0;
 
-    url += `Hola quería hacer un pedido${newline}`;
+    url += `Hola quería hacer un pedido ${newline} `;
 
-    url += `Pedido: ${newline}`;
+    url += `Pedido: ${newline} `;
 
     $.each(info, function(i){
 
         console.log(info[i]);
 
-        url += `Item ${i+1} x ${info[i].title} ${newline}`;
+        url += `Item ${i+1} - ${info[i].title} ${newline} `;
 
         // Sumar precio del producto 
         total_price += info[i].price;
@@ -49,22 +48,25 @@ function sendCartToWhatsapp(){
 
         });
 
-        url += `${string}${newline}`;
-        url += `Sub-total: $${total_price}`;
-        url += `${newline}#-----${newline}`;
+        url += `${string} ${newline} `;
+        url += `Sub-total: $${total_price}${newline}`;
+        url += `----- ${newline} `;
     });
 
-    url += `Total pedido:$${total_price} ${newline}`;
+    url += `${newline} Total estimado: $${total_price}`;
 
-    url += `${newline}Enviado desde GroverAPP?&lang=es`;
+    url += `${newline} Enviado desde GroverAPP&lang=es`;
 
-    url = url.replaceAll(' ', space);
+    //url = url.replaceAll('%20', space);
 
-    console.log(url);
+    //debuk
+    
 
     if (sessionStorage.getItem('cart')){
         var win = window.open(url, '_blank');
         win.focus();
+
+        console.log(url);
     }else{
         console.warn("Cart is currently empty");
         alert("Debe agregar items al carrito antes de continuar.");

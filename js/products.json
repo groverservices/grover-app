@@ -7,7 +7,7 @@
         "description": "PAN INTEGRAL ORGANICO Y VEGANO, AMASADO SOLO CON AGUA, CUATRO CEREALES Y CINCO SEMILLAS. 0% GRASA. \n <span>Photo by <a href='https://unsplash.com/@priscilladupreez?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Priscilla Du Preez</a> on <a href='https://unsplash.com/s/photos/whole-grains-cookie?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Unsplash</a></span>",
         "price": 450.00,
         "variants": [
-            {"type": "list",  "title": "Corte", "option": ["Cortado", "Sin cortar", "Vegano"], "price": [null, null, null]}
+            {"type": "list",  "title": "Corte", "option": ["Cortado", "Sin cortar", "Vegano"], "price": [null, null, 50.00]}
         ]
     },
     { "sku": 1, 
@@ -27,6 +27,19 @@
         "description": "",
         "price": 20.00,
         "variants": []
+    },
+    {
+        "sku": 3, 
+        "category": "Aires acondicionados",
+        "title":  "Aire acondicionado Philco split frío/calor",
+        "image": "https://http2.mlstatic.com/D_NQ_NP_665546-MLA40123324711_122019-O.webp",
+        "description": "Reducción de humedad y temperatura constante La función \"deshumidificación\" reduce la humedad que influye en la sensación térmica, y así, vas a mejorar la calidad de tu ambiente. Programá el encendido de acuerdo a tus necesidades. Con el timer vas a poder programar su encendido o apagado a la hora que quieras y disfrutar así de un clima ideal apenas ingresás a tu casa. Cuando las personas descansan, su temperatura corporal baja gradualmente. Por eso, este aire cuenta con la función Sleep, que hace que la temperatura del ambiente aumente a medida que pasa el tiempo. ¡Ya no vas a tener que preocuparte por levantarte a apagarlo y podrás disfrutar de un sueño placentero!",
+        "price": 64300.00,
+        "variants": [
+            {"type": "list",  "title": "Tamaño", "option": ["2500 frigorias", "3500 frigorias", "4500 frigorias"], "price": [null, 5800, 12900]},
+            {"type": "checkbox", "title": "Garantía extendida", "price": 2499.99},
+            {"type": "amount", "title": "Cañerias (x Mts)", "price": 45.50}
+        ]
     }
 
 ]

@@ -10,8 +10,57 @@ var g_phone_number = '';
 function sendCartToWhatsapp(){
     var newline = '%0A';
     var space = '%20';
-    var info = sessionStorage.getItem('cart')
-    var url = `https://wa.me/${g_phone_number}?text=Hola${newline}${info}?&lang=es`
+    var info = JSON.parse(sessionStorage.getItem('cart'));
+
+    var url = `https://wa.me/${g_phone_number}?text=`;
+
+    var total_price = 0;
+
+    url += `Hola quería hacer un pedido${newline}`;
+
+    url += `Pedido: ${newline}`;
+
+    $.each(info, function(i){
+
+        console.log(info[i]);
+
+        url += `Item ${i+1} x ${info[i].title} ${newline}`;
+
+        // Sumar precio del producto 
+        total_price += info[i].price;
+
+        var sub_total = 0;
+        sub_total = info[i].price;
+
+        var string = '';
+
+        $.each(info[i].variants, function (j){
+            string += info[i].variants[j].option;
+
+            // Si item existe item
+            if (info[i].variants[j].item) string += info[i].variants[j].item;
+    
+            // Si amount existe amount
+            if (info[i].variants[j].amount) string += info[i].variants[j].amount;
+
+            // Sumar los precios por variante
+            total_price += info[i].variants[j].price;
+            sub_total += info[i].variants[j].price;
+
+        });
+
+        url += `${string}${newline}`;
+        url += `Sub-total: $${total_price}`;
+        url += `${newline}#-----${newline}`;
+    });
+
+    url += `Total pedido:$${total_price} ${newline}`;
+
+    url += `${newline}Enviado desde GroverAPP?&lang=es`;
+
+    url = url.replaceAll(' ', space);
+
+    console.log(url);
 
     if (sessionStorage.getItem('cart')){
         var win = window.open(url, '_blank');
@@ -20,6 +69,7 @@ function sendCartToWhatsapp(){
         console.warn("Cart is currently empty");
         alert("Debe agregar items al carrito antes de continuar.");
     }
+    closeCartModal();
 }
 function updateCart(element_id){
     // Get the info for this product
@@ -89,23 +139,26 @@ function updateCart(element_id){
             var opt_price_s = $(this).find('td.table-ref-price')[0].innerHTML;
             var opt_price_f = parseFloat(opt_price_s.replace('$', ''));
 
-            if (isNaN(opt_price_f)){ // The User choosen this, but its free */
-                opt_price_f = 0.00; // Replace the NaN
+            if (isNaN(opt_price_f)){    // The User choosen this, but its free */
+                opt_price_f = 0.00;     // Replace the NaN
             }
             
             $.each(options_list, function(i){
                
                 // Look for the selected option from this list
                 if (options_list[i].selected){
+                    var sub_string = '(+ ';
 
-                    console.log(options_list);
+                    var option_name = options_list[i].innerText;
 
-                    console.warn(`list: ${var_title} | option choosen: ${true} | price: ${opt_price_f}`);
+                    var index = option_name.indexOf(sub_string);
 
-                    var option_name = options_list[i].innerText
-
-                    option_name = option_name.substring(0, var_title.indexOf('(+ ') - 1);
-
+                    if (index > -1){
+                        option_name = option_name.substring(1, index - 1);
+                    }else{
+                        option_name = option_name.substring(1, option_name.length);
+                    }
+                    
                     tempCart.variants.push({
                         "option": var_title,
                         "item": option_name,
@@ -202,7 +255,7 @@ function viewCurrentCart(){
             
             
 
-            console.log(objCurrentCart[i].variants[j]);
+            //console.log(objCurrentCart[i].variants[j]);
 
             /*variants_description += `${objCurrentCart[i].variants[j].option} ${objCurrentCart[i].variants[j].extra}:  | `;
             total_price += objCurrentCart[i].variants[j].price;*/

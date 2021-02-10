@@ -15,7 +15,7 @@ function sendCartToWhatsapp(){
 
     var total_price = 0;
 
-    url += `Hola quería hacer un pedido ${newline} `;
+    url += `*Hola quería hacer un pedido* ${newline}${newline} `;
 
     url += `Pedido: ${newline} `;
 
@@ -23,7 +23,7 @@ function sendCartToWhatsapp(){
 
         console.log(info[i]);
 
-        url += `Item ${i+1} - ${info[i].title} ${newline} `;
+        url += `*Item* ${i+1} - *${info[i].title}* ${newline} `;
 
         // Sumar precio del producto 
         total_price += info[i].price;
@@ -37,10 +37,10 @@ function sendCartToWhatsapp(){
             string += info[i].variants[j].option;
 
             // Si item existe item
-            if (info[i].variants[j].item) string += info[i].variants[j].item;
+            if (info[i].variants[j].item) string += ` ${info[i].variants[j].item} `;
     
             // Si amount existe amount
-            if (info[i].variants[j].amount) string += info[i].variants[j].amount;
+            if (info[i].variants[j].amount) string += ` ${info[i].variants[j].amount} `;
 
             // Sumar los precios por variante
             total_price += info[i].variants[j].price;
@@ -49,24 +49,17 @@ function sendCartToWhatsapp(){
         });
 
         url += `${string} ${newline} `;
-        url += `Sub-total: $${total_price}${newline}`;
+        url += `Sub-total: $${sub_total}${newline}`;
         url += `----- ${newline} `;
     });
 
-    url += `${newline} Total estimado: $${total_price}`;
+    url += `${newline}*Total estimado: $${total_price}* `;
 
-    url += `${newline} Enviado desde GroverAPP&lang=es`;
-
-    //url = url.replaceAll('%20', space);
-
-    //debuk
-    
+    url += `${newline}Enviado desde GroverAPP&lang=es`;
 
     if (sessionStorage.getItem('cart')){
         var win = window.open(url, '_blank');
         win.focus();
-
-        console.log(url);
     }else{
         console.warn("Cart is currently empty");
         alert("Debe agregar items al carrito antes de continuar.");
@@ -430,7 +423,6 @@ function createModalList(HTMLreference, modalType, variantOptions, variantTitle,
     data[i].variants[j].price   ->  variantPrice
     listTypeIndex               ->  listTypeIndex
 */
-
     var htmlPayload = '';
     if(modalType == 'checkbox'){
         htmlPayload =
@@ -471,8 +463,9 @@ function createModalList(HTMLreference, modalType, variantOptions, variantTitle,
         <tr>
             <td class="options-table-title">${variantTitle}</td>
             <td class="${modalType}">
-                <select class="list" onchange="updateModalPrice(this, 'list', null, null, ${listTypeIndex})">
-                    <option disabled selected value> -- ${variantTitle} -- </option>`;
+                <select class="list" onchange="updateModalPrice(this, 'list', null, null, ${listTypeIndex})">`;
+                   
+                   // <option disabled selected value> -- ${variantTitle} -- </option>`;
 
                     g_listTypeData.options.push(variantOptions);
                     g_listTypeData.price.push(variantPrice);

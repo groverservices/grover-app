@@ -3,8 +3,8 @@
         "sku": 0, 
         "category": "Panes",
         "title":  "Pan Cereales",
-        "image": "img/demo/pan_integral_semillas.jpg",
-        "description": "PAN INTEGRAL ORGANICO Y VEGANO, AMASADO SOLO CON AGUA, CUATRO CEREALES Y CINCO SEMILLAS. 0% GRASA. \n <span>Photo by <a href='https://unsplash.com/@priscilladupreez?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Priscilla Du Preez</a> on <a href='https://unsplash.com/s/photos/whole-grains-cookie?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Unsplash</a></span>",
+        "image": "assets/fresco-demo/img/0.jpg", 
+        "description": "Pan integral orgánico y vegano, amasado solo con agua, cuatro cereales y cinco semillas, 0% grasa. Imagen cortesía de <a href='https://unsplash.com/@priscilladupreez?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Priscilla Du Preez</a> en <a href='https://unsplash.com/s/photos/whole-grains-cookie?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Unsplash</a>",
         "price": 450.00,
         "variants": [
             {"type": "list",  "title": "Corte", "option": ["Cortado", "Sin cortar", "Vegano"], "price": [null, null, 50.00]}
@@ -13,34 +13,56 @@
     { "sku": 1, 
         "category": "Cookies",
         "title":  "Galletitas integrales de chocolate",
-        "image": "img/demo/cookies.jpg",
-        "description": "<span>Photo by <a href='https://unsplash.com/@aureliaduboisphotographie?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Aurélia Dubois</a> on <a href='https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Unsplash</a></span>",
-        "price": 20,
-        "variants": [{
-            "type": "amount", "title": "Agregar una unidad (+1)", "price": 20
-        }]
+        "image": "assets/fresco-demo/img/1.jpg",
+        "description": "Galletitas sin agregados industriales, totalmente orgánicas, de harina de trigo integral. Imagen cortesía de <a href='https://unsplash.com/@aureliaduboisphotographie?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Aurélia Dubois</a> on <a href='https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Unsplash</a>",
+        "price": 20.00,
+        "variants": [
+            {"type": "amount", "title": "Agregar una unidad (+1)", "price": 20}
+            
+        ]
     },
     { "sku": 2, 
-        "category": "Cookies",
-        "title":  "Galletitas integrales de chocolate",
-        "image": "",
-        "description": "",
-        "price": 20.00,
-        "variants": []
+        "category": "Panes",
+        "title":  "Pan baguette",
+        "image": "assets/fresco-demo/img/2.jpg",
+        "description": "Pan que se caracteriza por emplear harina de trigo, por ser mucho más largo que ancho y por su corteza crujiente. Imagen cortesía de <a href='https://unsplash.com/@sergich?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Sergio Arze</a> on <a href='https://unsplash.com/s/photos/baguette?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Unsplash</a>",
+        "price": 45.00,
+        "variants": [
+                {"type": "amount", "title": "Agregar una unidad (+1)", "price": 45.00},
+                {"type": "list",  "title": "Variedad", "option": ["Común", "Sin sal", "Con cebolla"], "price": [null, null, null]}
+            ]
     },
     {
         "sku": 3, 
-        "category": "Aires acondicionados",
-        "title":  "Aire acondicionado Philco split frío/calor",
-        "image": "https://http2.mlstatic.com/D_NQ_NP_665546-MLA40123324711_122019-O.webp",
-        "description": "Reducción de humedad y temperatura constante La función \"deshumidificación\" reduce la humedad que influye en la sensación térmica, y así, vas a mejorar la calidad de tu ambiente. Programá el encendido de acuerdo a tus necesidades. Con el timer vas a poder programar su encendido o apagado a la hora que quieras y disfrutar así de un clima ideal apenas ingresás a tu casa. Cuando las personas descansan, su temperatura corporal baja gradualmente. Por eso, este aire cuenta con la función Sleep, que hace que la temperatura del ambiente aumente a medida que pasa el tiempo. ¡Ya no vas a tener que preocuparte por levantarte a apagarlo y podrás disfrutar de un sueño placentero!",
-        "price": 64300.00,
+        "category": "Facturas",
+        "title":  "Croissant",
+        "image": "assets/fresco-demo/img/3.jpg",
+        "description": "Imagen cortesía de <a href='https://unsplash.com/@jannerboy62?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Nick Fewings</a> on <a href='https://unsplash.com/s/photos/croissant?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Unsplash</a>",
+        "price": 40.00,
         "variants": [
-            {"type": "list",  "title": "Tamaño", "option": ["2500 frigorias", "3500 frigorias", "4500 frigorias"], "price": [null, 5800, 12900]},
-            {"type": "checkbox", "title": "Garantía extendida", "price": 2499.99},
-            {"type": "amount", "title": "Cañerias (x Mts)", "price": 45.50}
-        ]
+                {"type": "amount", "title": "Agregar una unidad (+1)", "price": 40.00}
+            ]
+    },
+    {
+        "sku": 4, 
+        "category": "Alfajores",
+        "title":  "Alfajor chocolate negro",
+        "image": "assets/fresco-demo/img/4.jpg",
+        "description": "",
+        "price": 80.00,
+        "variants": [
+                {"type": "amount", "title": "Agregar una unidad (+1)", "price": 80.00}
+            ]
+    },
+    {
+        "sku": 5, 
+        "category": "Panes",
+        "title":  "Focaccia",
+        "image": "assets/fresco-demo/img/5.jpg",
+        "description": "Pan plano cubierto con hierbas y otros productos alimenticios.​​Se trata de un plato tradicional de la cocina italiana muy relacionado con la popular pizza. Imagen cortesía de <a href='https://unsplash.com/@idelamaza?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Iñigo De la Maza</a> on <a href='https://unsplash.com/s/photos/focaccia?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Unsplash</a>",
+        "price": 120.00,
+        "variants": [
+                {"type": "amount", "title": "Agregar una unidad (+1)", "price": 120.00}
+            ]
     }
-
 ]
-

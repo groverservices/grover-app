@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="icon" type="image/png" href="assets/fresco-demo/img/profile.png"> <!--assets/fresco-demo/img/-->
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="cover">
+                <img id="cover_img" src="" alt="">
+            </div>  <!-- Header cover -->
+
+            <!-- Grid containter -->
+            <div class="header-info">
+                <div class="profile-picture">
+                    <img id="profile_img" src="" alt="">
+                </div>
+
+                <div class="header-text">
+                    <h1 id="page_title"></h1>
+                    <p id="page_info"></p>
+                    <div class="link-ubicacion">
+                        <!-- Aca va un icono de ubicación-->
+                        <a id="address" rel="noreferrer" target="_blank" href="http://www.google.com"></a>
+                    </div>
+                </div>
+                <div class="social-icons"> 
+                    <!--
+                    <div class="social-item">
+                        <a href="www.mandarunwarap.com">     
+                            <svg height="100%" viewBox="0 0 24 24" width="100%" xmlns="http://www.w3.org/2000/svg">
+                                <path class="cls-1" d="M20.5 3.49a12 12 0 00-20.4 8.4 11.82 11.82 0 001.6 5.95L0 24l6.33-1.65A12 12 0 0012 23.79 11.94 11.94 0 0024 11.9a11.8 11.8 0 00-3.5-8.41zm-8.45 18.3A10 10 0 017 20.41l-.36-.21-3.76 1 1-3.65-.24-.37A9.88 9.88 0 0112.05 2a9.89 9.89 0 110 19.78zm5.45-7.4c-.3-.15-1.77-.87-2-1s-.47-.15-.67.15-.77 1-.95 1.17-.35.22-.65.07a8.17 8.17 0 01-2.4-1.47 9 9 0 01-1.66-2.06c-.17-.3 0-.46.13-.61s.3-.35.45-.52a2 2 0 00.3-.5.55.55 0 000-.52c-.14-.1-.74-1.58-.99-2.18s-.49-.5-.67-.51h-.57a1.1 1.1 0 00-.8.37A3.33 3.33 0 006 9.25a5.78 5.78 0 001.2 3.07 13.27 13.27 0 005.1 4.49 17.31 17.31 0 001.7.63 4.11 4.11 0 001.88.12 3.07 3.07 0 002-1.41 2.48 2.48 0 00.17-1.41c-.05-.13-.25-.21-.55-.36z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="social-item">
+
+                    </div>
+                    -->
+                </div>
+            </div> <!-- END Header info grid -->
+        </div> <!-- END Header -->
+
+        <div class="important-info-banner"><p id="banner_1"></p></div>
+
+        <div class="menu-tienda-info">
+            <p class="verde" id="Mostrar-tutienda" onclick="mostrarTienda();">Tienda</p><p id="Mostrar-tuinfo" onclick="mostrarInfo();">Información</p>
+        </div>
+
+        <div id="Info">
+            <h3 style="padding: 0 1em;">Horarios</h3>
+            <div class="table-horarios">
+                <div class="day-horarios"><h2>Lunes</h2></div>
+                <p>9</p><p>:</p><p>00</p><p>hs</p><p> a </p><p>13:00hs</p> - <p>14:00hs</p><p> a </p><p>19:00hs</p>
+                <div class="day-horarios"><h2>Martes</h2></div>
+                <p>9:00hs</p><p> a </p><p>13:00hs</p> - <p>14:00hs</p><p> a </p><p>19:00hs</p>
+                <div class="day-horarios"><h2>Miércoles</h2></div>
+                <p>9:00hs</p><p> a </p><p>13:00hs</p> - <p>14:00hs</p><p> a </p><p>19:00hs</p>
+                <div class="day-horarios"><h2>Jueves</h2></div>
+                <p>9:00hs</p><p> a </p><p>13:00hs</p> - <p>14:00hs</p><p> a </p><p>19:00hs</p>
+                <div class="day-horarios"><h2>Viernes</h2></div>
+                <p>9:00hs</p><p> a </p><p>13:00hs</p> - <p>14:00hs</p><p> a </p><p>19:00hs</p>
+                <div class="day-horarios"><h2>Sábado</h2></div>
+                <p>9:00hs</p><p> a </p><p>13:00hs</p> - <p>14:00hs</p><p> a </p><p>19:00hs</p>
+                <div class="day-horarios"><h2>Domingo</h2></div>
+                <p>Cerrado</p>
+            </div>
+            <h3 style="padding: 0 1em; margin-top: 2em;">Ubicación</h3>
+            <div class="table-horarios">
+                <div class="day-horarios"><h2>Buenos aires</h2></div>
+                <p>Avenida Siempre Viva 789</p>
+            </div>
+        </div>
+
+        <!-- Parte productos -->
+        <div id="products-section"></div>
+        <section class="fixed-cart-footer" onclick="viewCurrentCart()">
+            <p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M10 19.5c0 .829-.672 1.5-1.5 1.5s-1.5-.671-1.5-1.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.51.5zm3.5-1.5c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5zm1.336-5l1.977-7h-16.813l2.938 7h11.898zm4.969-10l-3.432 12h-12.597l.839 2h13.239l3.474-12h1.929l.743-2h-4.195z"/>
+                </svg>
+                Carrito 
+                <b></b>
+            </p> 
+        </section>
+        <footer>
+            <div class="Arma-tu-carrito"><p class="p-armar">Arma tu pedido y ponete en contacto con el vendedor.</p><p class="check-mark"><b>✓</b></p></div>
+            <div id="grover_cp"><p>Este sitio ha sido construido por<b><a target="_blank" rel="noreferrer" href="https://www.groverservices.com"><b> GROVER</b></a></b></p></div>
+        </footer>
+    </div>  <!-- END Container -->
+
+    <!-- Menu de opciones desplegable -->
+    <div id="modal" class="options-background">
+        <!-- Modal content -->
+        <div class="options-content">
+            <span class="close" id="close-btn" onclick="closeOptionals()">&times;</span>
+            <header id="options-content-header">
+            </header>
+            <table class="options-table" >
+                <tbody id="optionsTable">
+                </tbody>
+            </table>
+            <section id='btn-section'></section>
+        </div>
+    </div>
+
+    <!-- Carrito -->
+    <div id="cart-modal" class="options-background">
+        <div class="options-content">
+            <span class="close" id="close-btn" onclick="closeCartModal()">&times;</span>
+            <h1>Carrito</h1>
+            <h2 id="EmptyCartMsg" style="text-align: center;">Nada por aquí...</h2>   
+            <div class="products-table" id="cart-modal-product-table">
+            </div>
+            <section id="btn-section">
+                <div onclick="sendCartToWhatsapp()">
+                    <p>Terminar la compra</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div id="info-console"></div>
+    
+    <script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+[
+    {
+        "sku": 0, 
+        "category": "Panes",
+        "title":  "Pan Cereales",
+        "image": "assets/fresco-demo/img/0.webp", 
+        "description": "Pan integral orgánico y vegano, amasado solo con agua, cuatro cereales y cinco semillas, 0% grasa. Imagen cortesía de <a href='https://unsplash.com/@priscilladupreez?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Priscilla Du Preez</a> en <a href='https://unsplash.com/s/photos/whole-grains-cookie?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Unsplash</a>",
+        "price": 450.00,
+        "variants": [
+            {"type": "list",  "title": "Corte", "option": ["Cortado", "Sin cortar", "Vegano"], "price": [null, null, 50.00]}
+        ]
+    },
+    { "sku": 1, 
+        "category": "Cookies",
+        "title":  "Galletitas integrales de chocolate",
+        "image": "assets/fresco-demo/img/1.webp",
+        "description": "Galletitas sin agregados industriales, totalmente orgánicas, de harina de trigo integral. Imagen cortesía de <a href='https://unsplash.com/@aureliaduboisphotographie?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Aurélia Dubois</a> on <a href='https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Unsplash</a>",
+        "price": 20.00,
+        "variants": [
+            {"type": "amount", "title": "Agregar una unidad (+1)", "price": 20}
+            
+        ]
+    },
+    { "sku": 2, 
+        "category": "Panes",
+        "title":  "Pan baguette",
+        "image": "assets/fresco-demo/img/2.webp",
+        "description": "Pan que se caracteriza por emplear harina de trigo, por ser mucho más largo que ancho y por su corteza crujiente. Imagen cortesía de <a href='https://unsplash.com/@sergich?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Sergio Arze</a> on <a href='https://unsplash.com/s/photos/baguette?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Unsplash</a>",
+        "price": 45.00,
+        "variants": [
+                {"type": "amount", "title": "Agregar una unidad (+1)", "price": 45.00},
+                {"type": "list",  "title": "Variedad", "option": ["Común", "Sin sal", "Con cebolla"], "price": [null, null, null]}
+            ]
+    },
+    {
+        "sku": 3, 
+        "category": "Facturas",
+        "title":  "Croissant",
+        "image": "assets/fresco-demo/img/3.webp",
+        "description": "Imagen cortesía de <a href='https://unsplash.com/@jannerboy62?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Nick Fewings</a> on <a href='https://unsplash.com/s/photos/croissant?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Unsplash</a>",
+        "price": 40.00,
+        "variants": [
+                {"type": "amount", "title": "Agregar una unidad (+1)", "price": 40.00}
+            ]
+    },
+    {
+        "sku": 4, 
+        "category": "Alfajores",
+        "title":  "Alfajor chocolate negro",
+        "image": "assets/fresco-demo/img/4.webp",
+        "description": "",
+        "price": 80.00,
+        "variants": [
+                {"type": "amount", "title": "Agregar una unidad (+1)", "price": 80.00}
+            ]
+    },
+    {
+        "sku": 5, 
+        "category": "Panes",
+        "title":  "Focaccia",
+        "image": "assets/fresco-demo/img/5.webp",
+        "description": "Pan plano cubierto con hierbas y otros productos alimenticios.Se trata de un plato tradicional de la cocina italiana muy relacionado con la popular pizza. Imagen cortesía de <a href='https://unsplash.com/@idelamaza?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Iñigo De la Maza</a> on <a href='https://unsplash.com/s/photos/focaccia?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Unsplash</a>",
+        "price": 120.00,
+        "variants": [
+                {"type": "amount", "title": "Agregar una unidad (+1)", "price": 120.00}
+            ]
+    },
+    {
+        "sku": 6, 
+        "category": "Café",
+        "title":  "Descafeinado",
+        "image": "assets/fresco-demo/img/6.webp",
+        "description": "Café descafeinado en bolsa (x 250 gr.)",
+        "price": 790.00,
+        "variants": [
+                {"type": "amount", "title": "Agregar una unidad (+1)", "price": 790.00}
+            ]
+    },
+    {
+        "sku": 7, 
+        "category": "Café",
+        "title":  "Tostado",
+        "image": "assets/fresco-demo/img/7.webp",
+        "description": "Café mólido y tostado en bolsa (x 250 gr.)",
+        "price": 685.00,
+        "variants": [
+                {"type": "amount", "title": "Agregar una unidad (+1)", "price": 685.00}
+            ]
+    },
+    {
+        "sku": 8, 
+        "category": "Café",
+        "title":  "Torrado",
+        "image": "assets/fresco-demo/img/8.webp",
+        "description": "Café mólido y torrado en bolsa (x 250 gr.)",
+        "price": 550.00,
+        "variants": [
+                {"type": "amount", "title": "Agregar una unidad (+1)", "price": 550.00}
+            ]
+    }
+]
+

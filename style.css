@@ -682,4 +682,22 @@ body > div.container > section > p{ /* Text in fixed footer*/
     .product-card button {
         width: 80%;
     }
+    #cart-modal-product-table .product-card .price {
+        padding: 0;
+        text-align: center;
+    }
+    #cart-modal-product-table .product-card .close {
+        padding: 0;
+        text-align: center;
+    }
+    #cart-modal-product-table .product-card {
+        gap: 0.2em;
+    }
+    #cart-modal .options-content .products-table{
+        padding: 0em;
+        padding-bottom: 1em;
+    }
+    #cart-modal-product-table .product-card .price{
+        text-align: center;
+    }
 }

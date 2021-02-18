@@ -224,7 +224,7 @@ a{
 /* Product card grid */
 .product-card{
     
-    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 2.5px rgba(0, 0, 0, 0.424);
     border-radius:1rem;
 
     display: grid;
@@ -630,6 +630,9 @@ body > div.container > section > p{ /* Text in fixed footer*/
         grid-template-columns: 1fr;
         padding: 0.5em;
     }
+    .fixed-cart-footer{
+        width: 95%;
+    }
     /* footer */
     footer{
         grid-template-columns: 1fr;
@@ -673,43 +676,13 @@ body > div.container > section > p{ /* Text in fixed footer*/
     }
     .options-content{
         margin-bottom: 0;
-        padding: 0;
-        width: 100%;
+        padding: 1rem 1rem 1rem 1rem;
+        width: 95%;
     }
     #close-btn{
         font-size: 36px;
     }
     .product-card button {
         width: 80%;
-    }
-    #cart-modal-product-table .product-card .price {
-        padding: 0;
-        text-align: center;
-    }
-    #cart-modal-product-table .product-card .close {
-        padding: 0;
-        text-align: center;
-    }
-    #cart-modal-product-table .product-card {
-        gap: 0.2em;
-    }
-    #cart-modal .options-content .products-table{
-        padding: 0em;
-        padding-bottom: 1em;
-    }
-    #cart-modal-product-table .product-card .price{
-        text-align: center;
-    }
-    .options-content .close {
-        position: absolute;
-        right: 20px;
-    }
-    #cart-modal-product-table {
-        display: block;
-        margin: 0 auto;
-        width: 95%;
-    }
-    #btn-section {
-        margin-bottom: 1rem;
     }
 }

@@ -1,0 +1,18 @@
+{
+    "cover_img":"assets/fresco-demo/img/cover.webp",
+    "profile_img": "assets/fresco-demo/img/profile.png",
+    "title": "Fresco Demo",
+    "sub_title": "Productos orgánicos, 100% integrales, sin conservantes ni agregados. Usamos ingredientes de primera calidad",
+    "address": "Av. Siempre Viva 742",
+    "maps_link": "https://goo.gl/maps/k8gSKC6sAh46djmh9",
+    "banners":[
+        {"priority": "low", "data":"COVID-19: Trabajamos solo con envíos."}
+    ],
+    "whatsapp_contact": "5491173659063",
+    "social_media":[
+        {"platform": "whatsapp", "link": "whatsapp.com"},
+        {"platform": "facebook", "link": "facebook.com"},
+        {"platform": "instagram", "link": "instagram.com"},
+        {"platform": "twitter", "link": "twitter.com"}
+    ]
+}

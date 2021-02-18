@@ -673,8 +673,8 @@ body > div.container > section > p{ /* Text in fixed footer*/
     }
     .options-content{
         margin-bottom: 0;
-        padding: 1rem 1rem 1rem 1rem;
-        width: 95%;
+        padding: 0;
+        width: 100%;
     }
     #close-btn{
         font-size: 36px;
@@ -699,5 +699,17 @@ body > div.container > section > p{ /* Text in fixed footer*/
     }
     #cart-modal-product-table .product-card .price{
         text-align: center;
+    }
+    .options-content .close {
+        position: absolute;
+        right: 20px;
+    }
+    #cart-modal-product-table {
+        display: block;
+        margin: 0 auto;
+        width: 95%;
+    }
+    #btn-section {
+        margin-bottom: 1rem;
     }
 }

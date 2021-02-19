@@ -704,6 +704,9 @@ body > div.container > section > p{ /* Text in fixed footer*/
         position: absolute;
         right: 20px;
     }
+    .fixed-cart-footer{
+        width: 95%;
+    }
     #cart-modal-product-table {
         display: block;
         margin: 0 auto;

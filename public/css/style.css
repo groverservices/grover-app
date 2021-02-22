@@ -673,7 +673,7 @@ body > div.container > section > p{ /* Text in fixed footer*/
     }
     .options-content{
         margin-bottom: 0;
-        padding: 0;
+        /*padding: 0;*/
         width: 100%;
     }
     #close-btn{
